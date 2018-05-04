@@ -21,23 +21,23 @@ PODS:
   - EARestrictedScrollView (1.1.0)
   - GMGridView (1.1.1)
   - HexColors (2.2.1)
-  - HMSegmentedControl (1.5.3)
+  - HMSegmentedControl (1.5.4)
   - iCarousel (1.8.3)
   - INTULocationManager (4.2.0)
-  - IQKeyboardManager (4.0.7)
+  - IQKeyboardManager (4.0.13)
   - MACTableView (1.1.0):
     - DZNEmptyDataSet (~> 1.7.2)
     - MJRefresh (~> 3.1.0)
   - Masonry (0.6.4)
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.13)
-  - MJRefresh (3.1.12)
+  - MJRefresh (3.1.15.3)
   - MMPopupView (1.7.2):
     - Masonry
   - MXSegmentedPager (2.0.0):
     - HMSegmentedControl (~> 1.5.2)
     - VGParallaxHeader (~> 0.0.6)
-  - pop (1.0.9)
+  - pop (1.0.10)
   - PureLayout (3.0.2)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
@@ -46,7 +46,7 @@ PODS:
   - SDWebImage/Core (3.7.6)
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
-  - UITableView+FDTemplateLayoutCell (1.5.beta)
+  - "UITableView+FDTemplateLayoutCell (1.6)"
   - VGParallaxHeader (0.0.6):
     - PureLayout
   - YYCache (1.0.4)
@@ -78,10 +78,42 @@ DEPENDENCIES:
   - SDCycleScrollView (~> 1.62)
   - SDWebImage (~> 3.7.5)
   - TSMessages (~> 0.9.12)
-  - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
+  - "UITableView+FDTemplateLayoutCell (~> 1.5.beta)"
   - YYImage (~> 1.0.3)
   - YYText (~> 1.0.5)
   - YYWebImage (~> 1.0.4)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - CSStickyHeaderFlowLayout
+    - DZNEmptyDataSet
+    - EAIntroView
+    - EARestrictedScrollView
+    - GMGridView
+    - HexColors
+    - HMSegmentedControl
+    - iCarousel
+    - INTULocationManager
+    - IQKeyboardManager
+    - MACTableView
+    - Masonry
+    - MBProgressHUD
+    - MJExtension
+    - MJRefresh
+    - MMPopupView
+    - MXSegmentedPager
+    - pop
+    - PureLayout
+    - SDCycleScrollView
+    - SDWebImage
+    - TSMessages
+    - "UITableView+FDTemplateLayoutCell"
+    - VGParallaxHeader
+    - YYCache
+    - YYImage
+    - YYText
+    - YYWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -91,27 +123,29 @@ SPEC CHECKSUMS:
   EARestrictedScrollView: b0c2a3f92fb2610bb44d71c5e4893777c89e45ef
   GMGridView: 0e91e818e8b4768cfa1132ff3fdff24391ee230c
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
-  HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
+  HMSegmentedControl: b25bc4ec44766e073d62c473188fb354ee244b76
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
-  IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
+  IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   MACTableView: 3f378d6eb8d13f3abc30c4e4a804660ef8523e19
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
-  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
   MXSegmentedPager: bc6b5555d618f2be3e8da0472739d883d64b5796
-  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
-  UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
+  "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   VGParallaxHeader: 1213aba58c9b0aea84f9e81ad526fde57aa4fe48
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 02c6a2fbc63b1cbd99fb449f48c4bc528b1e9e2e
+
+COCOAPODS: 1.5.0
