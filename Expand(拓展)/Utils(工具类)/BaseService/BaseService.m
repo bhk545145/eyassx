@@ -32,6 +32,30 @@ typedef void(^ServerBlock)(id result, NSInteger errorCode, NSString *message);
 
 @implementation BaseService
 
++(void)GET:(NSString *)URLString parameters:( id)parameters result:(ResultBlock)requestBlock {
+    if ([HTTPClient sharedHTTPClient].isReachable) {//有网络
+        
+        [[HTTPClient sharedHTTPClient] GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"responseObject:--------%@",responseObject);
+            BaseModel *baseModel=[BaseModel mj_objectWithKeyValues:responseObject];
+            requestBlock([baseModel.ok intValue],[baseModel.data jsonBase64Value],nil);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [self showMessage:[error code]];
+            if (requestBlock) {
+                requestBlock(0,nil,error);
+            }
+        }];
+    }
+    else
+    {
+        [self showMessage:0];
+        if (requestBlock) {
+            requestBlock(0,nil,nil);
+        }
+        
+    }
+}
+
 +(void)POST:(NSString *)URLString  parameters:( id)parameters result:(ResultBlock)requestBlock{
     if ([HTTPClient sharedHTTPClient].isReachable) {//有网络
         

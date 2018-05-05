@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C179954209D7883006B4AEE /* BookListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C179953209D7883006B4AEE /* BookListModel.m */; };
+		3C179957209D8141006B4AEE /* BooksModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C179956209D8141006B4AEE /* BooksModel.m */; };
+		3CF1259D209D56D9002602A7 /* BookListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF1259B209D56D9002602A7 /* BookListViewCell.m */; };
+		3CF1259E209D56D9002602A7 /* BookListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF1259C209D56D9002602A7 /* BookListViewCell.xib */; };
 		5A02CEC61D6C27390009CBDD /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A02CEC41D6C27390009CBDD /* FriendsViewController.m */; };
 		5A05281F1D6EEF4B004ECE57 /* MMTweenAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0527EE1D6EEF4B004ECE57 /* MMTweenAnimation.m */; };
 		5A0528201D6EEF4B004ECE57 /* MMTweenFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0527F01D6EEF4B004ECE57 /* MMTweenFunction.m */; };
@@ -278,6 +282,13 @@
 
 /* Begin PBXFileReference section */
 		04E9B8D7AAE4DDFB32BD4049 /* libPods-MACProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MACProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C179952209D7883006B4AEE /* BookListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookListModel.h; sourceTree = "<group>"; };
+		3C179953209D7883006B4AEE /* BookListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookListModel.m; sourceTree = "<group>"; };
+		3C179955209D8141006B4AEE /* BooksModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BooksModel.h; sourceTree = "<group>"; };
+		3C179956209D8141006B4AEE /* BooksModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BooksModel.m; sourceTree = "<group>"; };
+		3CF1259A209D56D9002602A7 /* BookListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookListViewCell.h; sourceTree = "<group>"; };
+		3CF1259B209D56D9002602A7 /* BookListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookListViewCell.m; sourceTree = "<group>"; };
+		3CF1259C209D56D9002602A7 /* BookListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookListViewCell.xib; sourceTree = "<group>"; };
 		492699E2FCFCFFBE7A282EA1 /* Pods-MACProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MACProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MACProject/Pods-MACProject.debug.xcconfig"; sourceTree = "<group>"; };
 		5A02CEC41D6C27390009CBDD /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 		5A02CEC51D6C27390009CBDD /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
@@ -1105,6 +1116,9 @@
 				5A97EC781D6469AF00A29247 /* CarLightViewCell.xib */,
 				5A9074DB1D6556D90049CEC9 /* BannerCell.h */,
 				5A9074DC1D6556D90049CEC9 /* BannerCell.m */,
+				3CF1259A209D56D9002602A7 /* BookListViewCell.h */,
+				3CF1259B209D56D9002602A7 /* BookListViewCell.m */,
+				3CF1259C209D56D9002602A7 /* BookListViewCell.xib */,
 			);
 			path = "Home(首页)";
 			sourceTree = "<group>";
@@ -1136,6 +1150,10 @@
 				5A557C1E1D6C3B5D00DF26DC /* CityModel.m */,
 				5A557C1F1D6C3B5D00DF26DC /* CitysXMLParser.h */,
 				5A557C201D6C3B5D00DF26DC /* CitysXMLParser.m */,
+				3C179952209D7883006B4AEE /* BookListModel.h */,
+				3C179953209D7883006B4AEE /* BookListModel.m */,
+				3C179955209D8141006B4AEE /* BooksModel.h */,
+				3C179956209D8141006B4AEE /* BooksModel.m */,
 			);
 			path = "Home(首页)";
 			sourceTree = "<group>";
@@ -2255,6 +2273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AB520E11D53290F000C3C80 /* icon_refresh_3@3x.png in Resources */,
+				3CF1259E209D56D9002602A7 /* BookListViewCell.xib in Resources */,
 				5A58277D1DB49D6D00E00058 /* whiteplaceholder.png in Resources */,
 				5A90A2211D61CFB9005298B3 /* CarouseView.xib in Resources */,
 				5A6751C21D65AEBB0069DF33 /* citys.xml in Resources */,
@@ -2502,6 +2521,7 @@
 				5AB520EB1D53290F000C3C80 /* UIView+BlockGesture.m in Sources */,
 				5AB520F41D53290F000C3C80 /* UIView+ViewController.m in Sources */,
 				5ABC19CF1E12A18F00A306A7 /* MACWaveView.m in Sources */,
+				3C179957209D8141006B4AEE /* BooksModel.m in Sources */,
 				5A0528401D6EEF8B004ECE57 /* UINavigationController+WXSTransition.m in Sources */,
 				5A6088771D928060004EC84D /* YYWeakProxy.m in Sources */,
 				5AF9AF931D4A0F9800F23C1E /* AppDelegate.m in Sources */,
@@ -2545,6 +2565,7 @@
 				5AFD7B151D941B0C007EC7C2 /* UITableView+HYBCacheHeight.m in Sources */,
 				5AB520F71D53290F000C3C80 /* MONActivityIndicatorView.m in Sources */,
 				5A15AA4C1D583093000ED86E /* UIView+Shake.m in Sources */,
+				3CF1259D209D56D9002602A7 /* BookListViewCell.m in Sources */,
 				5A58277F1DB49D6D00E00058 /* ChatToolBarItem.m in Sources */,
 				5AB520D41D53290F000C3C80 /* UINavigationItem+Lock.m in Sources */,
 				5A5827A71DB4B7D900E00058 /* UIImageLabelHeaderView.m in Sources */,
@@ -2576,6 +2597,7 @@
 				5A5827911DB49D6D00E00058 /* mask.c in Sources */,
 				5A5827AA1DB4BBC100E00058 /* RandomViewController.m in Sources */,
 				5A0528271D6EEF4B004ECE57 /* BaseModel.m in Sources */,
+				3C179954209D7883006B4AEE /* BookListModel.m in Sources */,
 				5A5827851DB49D6D00E00058 /* FaceButton.m in Sources */,
 				5AB520D21D53290F000C3C80 /* UINavigationController+MAC.m in Sources */,
 				5AB520BE1D53290F000C3C80 /* UICollectionView+ARDynamicCacheHeightLayoutCell.m in Sources */,

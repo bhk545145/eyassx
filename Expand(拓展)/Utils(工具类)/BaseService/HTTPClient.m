@@ -12,7 +12,7 @@
 @implementation HTTPClient
 static HTTPClient *_sharedHTTPClient = nil;
 
-static NSString *baseUrl = @"http://www.361school.com:73/";
+static NSString *baseUrl = @"https://api.zhuishushenqi.com/";
 
 
 +(instancetype)sharedHTTPClient{
@@ -58,8 +58,8 @@ static NSString *baseUrl = @"http://www.361school.com:73/";
     self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
 
    // [self.requestSerializer setAuthorizationHeaderFieldWithUsername:@"XYZ" password:@"xyzzzz"];
-    self.requestSerializer                         = [AFHTTPRequestSerializer serializer];
-    self.responseSerializer                        = [AFHTTPResponseSerializer serializer];
+//    self.requestSerializer                         = [AFHTTPRequestSerializer serializer];
+//    self.responseSerializer                        = [AFHTTPResponseSerializer serializer];
     self.requestSerializer.timeoutInterval         = 10.0;
    //self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     AFSecurityPolicy *securityPolicy               = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];

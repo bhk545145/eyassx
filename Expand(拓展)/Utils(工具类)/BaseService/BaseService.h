@@ -20,6 +20,14 @@ typedef void(^ResultBlock)(NSInteger stateCode, NSMutableArray* result, NSError 
 @interface BaseService : NSObject
 
 /**
+ *  普通的GET访问请求(有提示，带判断网络状态)
+ *
+ *  @param URLString    接口地址
+ *  @param parameters   字典参数
+ *  @param requestBlock 回调函数
+ */
++(void)GET:(NSString *)URLString parameters:( id)parameters result:(ResultBlock)requestBlock;
+/**
  *  普通的访问请求(有提示，带判断网络状态)
  *
  *  @param URLString    接口地址

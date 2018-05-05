@@ -12,8 +12,16 @@
 #import "NewCarouselListCell.h"
 #import "CarLightViewCell.h"
 #import "BannerCell.h"
+#import "BookListViewCell.h"
+#import "BaseService.h"
+#import "BookListModel.h"
+#import "BooksModel.h"
+
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>{
     CGFloat headerHeight;
+    NSMutableArray *bookListArr;
+    NSMutableArray *booksArr;
+    dispatch_queue_t queue;
 }
 @property (nonatomic,strong) UICollectionView *collectionView;
 
@@ -21,7 +29,7 @@
 
 @implementation HomeViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifier = @"BookListViewCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
@@ -34,6 +42,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    queue = dispatch_queue_create("net.book.Queue", DISPATCH_QUEUE_SERIAL);
     
     
     [self initUI];
@@ -62,12 +71,14 @@ static NSString * const reuseIdentifier = @"Cell";
           forSupplementaryViewOfKind:CSStickyHeaderParallaxHeader
                  withReuseIdentifier:@"ParallaxHeaderViewCell"];
     [self.collectionView registerNib:[NewCarouselListCell loadNib] forCellWithReuseIdentifier:@"newCarouselListCell"];
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerNib:[BookListViewCell loadNib] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerClass:[BannerCell class] forCellWithReuseIdentifier:@"bannerCell"];
     [self.collectionView registerNib:[CarLightViewCell loadNib] forCellWithReuseIdentifier:@"carLightViewCell"];
 }
 -(void)initData{
-    
+    bookListArr = [NSMutableArray array];
+    booksArr = [NSMutableArray array];
+    [self loadData];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -77,7 +88,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 10;
+    return booksArr.count;
 }
 
 
@@ -86,7 +97,8 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *arr   = @[@"newCarouselListCell",@"carLightViewCell" ,@"bannerCell"];
+//    NSArray *arr   = @[@"newCarouselListCell",@"carLightViewCell" ,@"bannerCell"];
+    NSArray *arr   = @[];
     UICollectionViewCell   *cell = nil;
     if (indexPath.section < arr.count) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:arr[indexPath.section] forIndexPath:indexPath];
@@ -130,6 +142,69 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
 }
+
+//获取首页分类书  https://api.zhuishushenqi.com/recommendPage/nodes/5910018c8094b1e228e5868f
+- (void)getHomeBookList{
+    [BaseService GET:@"https://api.zhuishushenqi.com/recommendPage/nodes/5910018c8094b1e228e5868f" parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
+        switch (stateCode) {
+            case 1:
+            {
+                for (id obj in result[0]) {
+                    BookListModel *model = [BookListModel mj_objectWithKeyValues:obj];
+                    if (model.type == 0) {
+                        [bookListArr addObject:model];
+                    }
+                }
+                DLog(@"获取首页分类成功");
+                for (BookListModel *model in bookListArr) {
+                    [self getBooks:model._id];
+                }
+            }
+                break;
+            case 0:
+            {
+                DLog(@"请求失败");
+            }
+                break;
+            default:
+                break;
+        }
+    }];
+}
+//通过id获取分类书
+- (void)getBooks:(NSString *)modelId{
+    NSString *URLString = [NSString stringWithFormat:@"https://api.zhuishushenqi.com/recommendPage/books/%@",modelId];
+    [BaseService GET:URLString parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
+        switch (stateCode) {
+            case 1:
+            {
+                for (id obj in result[0]) {
+                    NSInteger show = [obj[@"show"] integerValue];
+                    if (show) {
+                        BooksModel *model = [BooksModel mj_objectWithKeyValues:obj[@"book"]];
+                        [booksArr addObject:model];
+                    }
+                }
+                DLog(@"通过id获取分类书成功");
+            }
+                break;
+            case 0:
+            {
+                DLog(@"请求失败");
+            }
+                break;
+            default:
+                break;
+        }
+    }];
+}
+
+-(void)loadData{
+    dispatch_async(queue, ^{
+        [self getHomeBookList];
+    });
+}
+
 
 @end
 
