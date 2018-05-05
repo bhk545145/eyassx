@@ -7,7 +7,7 @@
 //
 
 #import "HomeViewController.h"
-#import "CSStickyHeaderFlowLayout.h"
+//#import "CSStickyHeaderFlowLayout.h"
 #import "ParallaxHeaderViewCell.h"
 #import "NewCarouselListCell.h"
 #import "CarLightViewCell.h"
@@ -16,6 +16,8 @@
 #import "BaseService.h"
 #import "BookListModel.h"
 #import "BooksModel.h"
+#import "UIImageView+MAC.h"
+#import "BooksHeadView.h"
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>{
     CGFloat headerHeight;
@@ -53,23 +55,22 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     // self.fd_prefersNavigationBarHidden=YES;
     headerHeight                                  = 200;
     self.title                                    = @"秉烛小说";
-    CSStickyHeaderFlowLayout *flowLayout          = [[CSStickyHeaderFlowLayout alloc]init];
-    flowLayout.parallaxHeaderReferenceSize        = CGSizeMake(self.view.width, headerHeight);
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.headerReferenceSize        = CGSizeMake(self.view.width, headerHeight);
     
-    flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(self.view.width, 100);
     flowLayout.itemSize                           = CGSizeMake(self.view.width, headerHeight);
     // If we want to disable the sticky header effect
     self.automaticallyAdjustsScrollViewInsets     = NO;//保证从0
     // flowLayout.disableStickyHeaders = NO;
     self.collectionView                           = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, appWidth , appHeight-40) collectionViewLayout:flowLayout];
-    //self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
+//    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(-64, 0, 0, 0);
     self.collectionView.backgroundColor           = [UIColor whiteColor];
     self.collectionView.dataSource                = self;
     self.collectionView.delegate                  = self;
     [self.view addSubview:self.collectionView];
-    [self.collectionView registerNib:[ParallaxHeaderViewCell loadNib]
-          forSupplementaryViewOfKind:CSStickyHeaderParallaxHeader
-                 withReuseIdentifier:@"ParallaxHeaderViewCell"];
+//    [self.collectionView registerNib:[ParallaxHeaderViewCell loadNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ParallaxHeaderViewCell"];
+    [self.collectionView registerNib:[BooksHeadView loadNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BooksHeadView"];
+     [self.collectionView registerNib:[ParallaxHeaderViewCell loadNib] forCellWithReuseIdentifier:@"ParallaxHeaderViewCell"];
     [self.collectionView registerNib:[NewCarouselListCell loadNib] forCellWithReuseIdentifier:@"newCarouselListCell"];
     [self.collectionView registerNib:[BookListViewCell loadNib] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerClass:[BannerCell class] forCellWithReuseIdentifier:@"bannerCell"];
@@ -93,42 +94,65 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 1;
+    if (section == 0) {
+        return 1;
+    }
+    return [booksArr[section] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 //    NSArray *arr   = @[@"newCarouselListCell",@"carLightViewCell" ,@"bannerCell"];
-    NSArray *arr   = @[];
-    UICollectionViewCell   *cell = nil;
+    NSArray *arr   = @[@"ParallaxHeaderViewCell"];
     if (indexPath.section < arr.count) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:arr[indexPath.section] forIndexPath:indexPath];
+        UICollectionViewCell   *cell = [collectionView dequeueReusableCellWithReuseIdentifier:arr[indexPath.section] forIndexPath:indexPath];
+        return cell;
     }else {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-        cell.backgroundColor = [UIColor RandomColor];
-        
+        BookListViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+        // Configure the cell
+        BooksModel *booksModel = booksArr[indexPath.section-1][indexPath.row];
+        [cell.bookImageView mac_setImageWithURL:[NSURL URLWithString:booksModel.cover] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
+        cell.titleLable.text = booksModel.title;
+        cell.authorLable.text = booksModel.author;
+        cell.shortIntroLable.text = booksModel.shortIntro;
+        return cell;
     }
-    // Configure the cell
-    return cell;
+    
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    UICollectionReusableView *cell=nil;
-    if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
-        cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                                  withReuseIdentifier:@"ParallaxHeaderViewCell"
-                                                         forIndexPath:indexPath];
+    
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        BooksHeadView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"BooksHeadView" forIndexPath:indexPath];
+        BookListModel *model = bookListArr[indexPath.section-1];
+        cell.booksTitle.text = model.title;
+        DLog(@"model.title:%@",model.title);
+        DLog(@"booksTitle:%@",cell.booksTitle.text);
+        return cell;
+        
     }
-    return cell;
+    return nil;
 }
+
+
 #pragma  mark UICollectionViewDelegateFlowLayout
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSArray *arr   = @[@150.0f,@164.f,@150.0f];
-    if (indexPath.section < arr.count) {
-        return CGSizeMake(self.view.width, [arr[indexPath.section] floatValue]);
-    }
-    
+    DLog(@"section:%ld",(long)indexPath.section);
+//    NSArray *arr   = @[@150.0f,@164.f,@150.0f];
+//    if (indexPath.section < arr.count) {
+//        return CGSizeMake(self.view.width, [arr[indexPath.section] floatValue]);
+//    }
+//
     return CGSizeMake(self.view.width, headerHeight);
 }
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return CGSizeZero;
+    }
+    return CGSizeMake(self.view.width, 30);
+    
+}
+
 #pragma mark - UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat offsetY = scrollView.contentOffset.y;
@@ -178,13 +202,15 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         switch (stateCode) {
             case 1:
             {
+                NSMutableArray *booksList = [NSMutableArray array];
                 for (id obj in result[0]) {
                     NSInteger show = [obj[@"show"] integerValue];
                     if (show) {
                         BooksModel *model = [BooksModel mj_objectWithKeyValues:obj[@"book"]];
-                        [booksArr addObject:model];
+                        [booksList addObject:model];
                     }
                 }
+                [booksArr addObject:booksList];
                 DLog(@"通过id获取分类书成功");
             }
                 break;
@@ -196,7 +222,9 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
             default:
                 break;
         }
+        [self.collectionView reloadData];
     }];
+    
 }
 
 -(void)loadData{

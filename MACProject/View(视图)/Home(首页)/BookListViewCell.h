@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface BookListViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *bookImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLable;
 
+@property (weak, nonatomic) IBOutlet UILabel *shortIntroLable;
+@property (weak, nonatomic) IBOutlet UILabel *authorLable;
 @end
