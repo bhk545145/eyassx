@@ -58,6 +58,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     // self.fd_prefersNavigationBarHidden=YES;
     headerHeight                                  = 200;
     self.title                                    = @"秉烛小说";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"faxian_gray"] style:UIBarButtonItemStylePlain target:self action:@selector(searchBtn)];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.headerReferenceSize        = CGSizeMake(self.view.width, headerHeight);
     
@@ -88,6 +89,11 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)searchBtn {
+    BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
+    bookWebVC.webUrl = eyassxURL;
+    [self.navigationController pushViewControllerHideTabBar:bookWebVC animated:YES];
 }
 
 #pragma mark <UICollectionViewDataSource>
