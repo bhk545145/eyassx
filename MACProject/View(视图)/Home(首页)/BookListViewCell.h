@@ -13,5 +13,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
 
 @property (weak, nonatomic) IBOutlet UILabel *shortIntroLable;
-@property (weak, nonatomic) IBOutlet UILabel *authorLable;
+@property (weak, nonatomic) IBOutlet UIButton *authorLable;
 @end

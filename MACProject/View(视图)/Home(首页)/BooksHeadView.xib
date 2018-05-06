@@ -15,31 +15,41 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  女生最爱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SP3-9w-wLX">
-                    <rect key="frame" x="5" y="10" width="69.5" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYe-Oa-tEJ">
+                    <rect key="frame" x="277" y="16" width="38" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYe-Oa-tEJ">
-                    <rect key="frame" x="276" y="10.5" width="39" height="28"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <state key="normal" title="更多 &gt;">
-                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="更多" image="right_arrow">
+                        <color key="titleColor" red="1" green="0.3255041737172033" blue="0.36223464602203626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="moreBooksBtn:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="EXo-mt-YJF"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLo-61-qCk">
+                    <rect key="frame" x="8" y="15" width="162" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="162" id="SXx-rz-L1C"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="女生最爱11" image="chaweizhang_red">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="SP3-9w-wLX" secondAttribute="bottom" constant="10" id="MLf-O8-Bq4"/>
-                <constraint firstItem="SP3-9w-wLX" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="5" id="WxL-MI-w5m"/>
-                <constraint firstAttribute="trailing" secondItem="qYe-Oa-tEJ" secondAttribute="trailing" constant="5" id="lfW-Jq-XbX"/>
-                <constraint firstItem="qYe-Oa-tEJ" firstAttribute="centerY" secondItem="SP3-9w-wLX" secondAttribute="centerY" id="oxs-Mj-qfU"/>
-                <constraint firstItem="SP3-9w-wLX" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="10" id="qYt-59-Tzb"/>
+                <constraint firstItem="CLo-61-qCk" firstAttribute="baseline" secondItem="qYe-Oa-tEJ" secondAttribute="baseline" id="3Lb-zb-hA2"/>
+                <constraint firstItem="CLo-61-qCk" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="ETM-QF-gHN"/>
+                <constraint firstAttribute="trailing" secondItem="qYe-Oa-tEJ" secondAttribute="trailing" constant="5" id="VLU-ck-GOS"/>
+                <constraint firstItem="CLo-61-qCk" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="8" id="fqq-fB-Lqe"/>
             </constraints>
             <connections>
-                <outlet property="booksTitle" destination="SP3-9w-wLX" id="2Pt-XB-Vca"/>
+                <outlet property="booksTitle" destination="CLo-61-qCk" id="3Ag-89-iKZ"/>
                 <outlet property="moreBooksBtn" destination="qYe-Oa-tEJ" id="2e2-U7-U7G"/>
             </connections>
         </collectionReusableView>
     </objects>
+    <resources>
+        <image name="chaweizhang_red" width="17" height="20"/>
+        <image name="right_arrow" width="7" height="12"/>
+    </resources>
 </document>

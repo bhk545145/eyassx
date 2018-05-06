@@ -18,10 +18,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sy_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Wg3-3Z-3YK">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4x-Gb-l9a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                    </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPK-iM-f8C">
+                        <state key="normal" image="sy_bg"/>
+                        <connections>
+                            <action selector="spreadImageViewBtn:" destination="gTV-IL-0wX" eventType="touchUpInside" id="LTF-8r-QW8"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPK-iM-f8C">
                         <rect key="frame" x="8" y="156" width="60" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="Fq6-nC-uvt"/>
@@ -36,16 +40,21 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Wg3-3Z-3YK" secondAttribute="bottom" id="28q-Uj-wxB"/>
-                <constraint firstAttribute="trailing" secondItem="Wg3-3Z-3YK" secondAttribute="trailing" id="6E1-pV-t1c"/>
+                <constraint firstAttribute="bottom" secondItem="A4x-Gb-l9a" secondAttribute="bottom" id="186-w4-oPd"/>
+                <constraint firstAttribute="bottom" secondItem="A4x-Gb-l9a" secondAttribute="bottom" id="5sW-bn-CSS"/>
+                <constraint firstAttribute="trailing" secondItem="A4x-Gb-l9a" secondAttribute="trailing" id="7G5-Pi-7gO"/>
                 <constraint firstItem="hPK-iM-f8C" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="GVC-KC-QBs"/>
-                <constraint firstItem="Wg3-3Z-3YK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="VDy-fw-rX3"/>
-                <constraint firstItem="Wg3-3Z-3YK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="WWu-UE-Ddl"/>
+                <constraint firstAttribute="trailing" secondItem="A4x-Gb-l9a" secondAttribute="trailing" id="YK6-Io-cI1"/>
+                <constraint firstItem="A4x-Gb-l9a" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fje-xV-ftD"/>
+                <constraint firstItem="A4x-Gb-l9a" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="iJU-9m-V1k"/>
                 <constraint firstAttribute="bottom" secondItem="hPK-iM-f8C" secondAttribute="bottom" id="maI-z5-JSI"/>
+                <constraint firstItem="A4x-Gb-l9a" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="yIz-DH-V7C"/>
+                <constraint firstItem="A4x-Gb-l9a" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ypv-u2-LkC"/>
             </constraints>
             <size key="customSize" width="310" height="184"/>
             <connections>
                 <outlet property="btnCity" destination="hPK-iM-f8C" id="17Z-vF-iDh"/>
+                <outlet property="spreadImageView" destination="A4x-Gb-l9a" id="xxL-H0-Q7f"/>
             </connections>
             <point key="canvasLocation" x="348" y="306"/>
         </collectionViewCell>

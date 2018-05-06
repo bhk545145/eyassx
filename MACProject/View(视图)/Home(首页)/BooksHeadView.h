@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BooksHeadView : UICollectionReusableView
-@property (weak, nonatomic) IBOutlet UILabel *booksTitle;
+@property (weak, nonatomic) IBOutlet UIButton *booksTitle;
 @property (weak, nonatomic) IBOutlet UIButton *moreBooksBtn;
-
+@property (strong, nonatomic) NSString *_id;
 @end

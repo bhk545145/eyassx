@@ -25,10 +25,14 @@
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor appRedColor]} forState:UIControlStateSelected];
     [self.tabBar setBackgroundImage:[UIImage imageWithColor:[UIColor appNavigationBarColor]]];
 
-    NSArray *titleArr = @[@"闲鱼",@"朋友圈",@"云周边",@"发现"];
-    NSArray *iconArr = @[@"chaweizhang_gray",@"cheyouquan_gray",@"chazhoubian_gray",@"faxian_gray"];
-    NSArray *selectIconArr = @[@"chaweizhang_red",@"cheyouquan_red",@"chazhoubian_red",@"faxian_red"];
-    NSArray *controllerArr = @[@"HomeViewController",@"FriendsViewController",@"NearViewController",@"FindViewController"];
+//    NSArray *titleArr = @[@"闲鱼",@"朋友圈",@"云周边",@"发现"];
+//    NSArray *iconArr = @[@"chaweizhang_gray",@"cheyouquan_gray",@"chazhoubian_gray",@"faxian_gray"];
+//    NSArray *selectIconArr = @[@"chaweizhang_red",@"cheyouquan_red",@"chazhoubian_red",@"faxian_red"];
+//    NSArray *controllerArr = @[@"HomeViewController",@"FriendsViewController",@"NearViewController",@"FindViewController"];
+    NSArray *titleArr = @[@"闲鱼",@"排行榜"];
+    NSArray *iconArr = @[@"chaweizhang_gray",@"chazhoubian_gray"];
+    NSArray *selectIconArr = @[@"chaweizhang_red",@"chazhoubian_red"];
+    NSArray *controllerArr = @[@"HomeViewController",@"BookWebViewController"];
     for(NSInteger i = 0;i < controllerArr.count;i++)
     {
 

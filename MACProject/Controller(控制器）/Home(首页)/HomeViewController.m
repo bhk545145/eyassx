@@ -18,11 +18,14 @@
 #import "BooksModel.h"
 #import "UIImageView+MAC.h"
 #import "BooksHeadView.h"
+#import "BookSpreadModel.h"
+#import "BookWebViewController.h"
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>{
     CGFloat headerHeight;
     NSMutableArray *bookListArr;
     NSMutableArray *booksArr;
+    NSMutableArray *spReadArr;
     dispatch_queue_t queue;
 }
 @property (nonatomic,strong) UICollectionView *collectionView;
@@ -62,7 +65,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     // If we want to disable the sticky header effect
     self.automaticallyAdjustsScrollViewInsets     = NO;//保证从0
     // flowLayout.disableStickyHeaders = NO;
-    self.collectionView                           = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, appWidth , appHeight-40) collectionViewLayout:flowLayout];
+    self.collectionView                           = [[UICollectionView alloc] initWithFrame:CGRectMake(0, -64, appWidth , appHeight+24) collectionViewLayout:flowLayout];
 //    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(-64, 0, 0, 0);
     self.collectionView.backgroundColor           = [UIColor whiteColor];
     self.collectionView.dataSource                = self;
@@ -79,6 +82,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 -(void)initData{
     bookListArr = [NSMutableArray array];
     booksArr = [NSMutableArray array];
+    spReadArr= [NSMutableArray array];
     [self loadData];
 }
 - (void)didReceiveMemoryWarning {
@@ -104,7 +108,8 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 //    NSArray *arr   = @[@"newCarouselListCell",@"carLightViewCell" ,@"bannerCell"];
     NSArray *arr   = @[@"ParallaxHeaderViewCell"];
     if (indexPath.section < arr.count) {
-        UICollectionViewCell   *cell = [collectionView dequeueReusableCellWithReuseIdentifier:arr[indexPath.section] forIndexPath:indexPath];
+        ParallaxHeaderViewCell   *cell = [collectionView dequeueReusableCellWithReuseIdentifier:arr[indexPath.section] forIndexPath:indexPath];
+        cell.spreadArry = spReadArr;
         return cell;
     }else {
         BookListViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
@@ -112,7 +117,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         BooksModel *booksModel = booksArr[indexPath.section-1][indexPath.row];
         [cell.bookImageView mac_setImageWithURL:[NSURL URLWithString:booksModel.cover] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
         cell.titleLable.text = booksModel.title;
-        cell.authorLable.text = booksModel.author;
+        [cell.authorLable setTitle:booksModel.author forState:UIControlStateNormal];
         cell.shortIntroLable.text = booksModel.shortIntro;
         return cell;
     }
@@ -120,23 +125,32 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        BooksHeadView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"BooksHeadView" forIndexPath:indexPath];
-        BookListModel *model = bookListArr[indexPath.section-1];
-        cell.booksTitle.text = model.title;
-        DLog(@"model.title:%@",model.title);
-        DLog(@"booksTitle:%@",cell.booksTitle.text);
-        return cell;
+    if (indexPath.section == 0) {
         
+    }else{
+        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+            BooksHeadView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"BooksHeadView" forIndexPath:indexPath];
+            BookListModel *model = bookListArr[indexPath.section -1];
+            [cell.booksTitle setTitle:model.title forState:UIControlStateNormal];
+            cell._id = model._id;
+            return cell;
+        }
     }
+    
     return nil;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    BooksModel *booksModel = booksArr[indexPath.section-1][indexPath.row];
+    NSString *bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,booksModel._id];
+    DLog(@"bookReaderURL:%@",bookReaderURL);
+    BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
+    bookWebVC.webUrl = bookReaderURL;
+    [self.navigationController pushViewControllerHideTabBar:bookWebVC animated:YES];
+}
 
 #pragma  mark UICollectionViewDelegateFlowLayout
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    DLog(@"section:%ld",(long)indexPath.section);
 //    NSArray *arr   = @[@150.0f,@164.f,@150.0f];
 //    if (indexPath.section < arr.count) {
 //        return CGSizeMake(self.view.width, [arr[indexPath.section] floatValue]);
@@ -169,7 +183,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 
 //获取首页分类书  https://api.zhuishushenqi.com/recommendPage/nodes/5910018c8094b1e228e5868f
 - (void)getHomeBookList{
-    [BaseService GET:@"https://api.zhuishushenqi.com/recommendPage/nodes/5910018c8094b1e228e5868f" parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
+    [BaseService GET:[NSString stringWithFormat:@"%@/recommendPage/nodes/5910018c8094b1e228e5868f",zhuishushenqiURL] parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
         switch (stateCode) {
             case 1:
             {
@@ -197,7 +211,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 }
 //通过id获取分类书
 - (void)getBooks:(NSString *)modelId{
-    NSString *URLString = [NSString stringWithFormat:@"https://api.zhuishushenqi.com/recommendPage/books/%@",modelId];
+    NSString *URLString = [NSString stringWithFormat:@"%@/recommendPage/books/%@",zhuishushenqiURL,modelId];
     [BaseService GET:URLString parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
         switch (stateCode) {
             case 1:
@@ -227,8 +241,35 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     
 }
 
+//获取轮播图  https://api.zhuishushenqi.com/recommendPage/node/spread/575f74f27a4a60dc78a435a3?pl=ios
+- (void)getSpreadImage {
+    NSString *URLString = [NSString stringWithFormat:@"%@/recommendPage/node/spread/575f74f27a4a60dc78a435a3?pl=ios",zhuishushenqiURL];
+    [BaseService GET:URLString parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
+        switch (stateCode) {
+            case 1:
+            {
+                for (id obj in result[0]) {
+                    BookSpreadModel *model = [BookSpreadModel mj_objectWithKeyValues:obj];
+                    [spReadArr addObject:model];
+                }
+                DLog(@"获取轮播图成功");
+            }
+                break;
+            case 0:
+            {
+                DLog(@"请求失败");
+            }
+                break;
+            default:
+                break;
+        }
+        [self.collectionView reloadData];
+    }];
+}
+
 -(void)loadData{
     dispatch_async(queue, ^{
+        [self getSpreadImage];
         [self getHomeBookList];
     });
 }

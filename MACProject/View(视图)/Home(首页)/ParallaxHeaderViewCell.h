@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ParallaxHeaderViewCell : UICollectionViewCell
+@interface ParallaxHeaderViewCell : UICollectionViewCell<UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *btnCity;
+@property (weak, nonatomic) IBOutlet UIButton *spreadImageView;
+@property (strong, nonatomic)  NSMutableArray *spreadArry;
+@property(nonatomic,strong) UIScrollView *bannerView;
+@property(nonatomic,strong) UIPageControl *pageControl;
+@property (strong, nonatomic)  NSString *link;
 @end
