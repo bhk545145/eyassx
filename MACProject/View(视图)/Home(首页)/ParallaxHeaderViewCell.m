@@ -33,6 +33,7 @@
     self.bannerView.delegate = self;
     self.bannerView.pagingEnabled = YES;
     
+    self.bannerView.bounces = NO;
     self.bannerView.showsHorizontalScrollIndicator = NO;
     self.bannerView.showsVerticalScrollIndicator = NO;
     self.bannerView.contentSize = CGSizeMake(self.width*spreadArry.count, 0);

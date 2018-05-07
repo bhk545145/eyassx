@@ -68,6 +68,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     // flowLayout.disableStickyHeaders = NO;
     self.collectionView                           = [[UICollectionView alloc] initWithFrame:CGRectMake(0, -64, appWidth , appHeight+24) collectionViewLayout:flowLayout];
 //    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(-64, 0, 0, 0);
+    self.collectionView.bounces                        = NO;
     self.collectionView.backgroundColor           = [UIColor whiteColor];
     self.collectionView.dataSource                = self;
     self.collectionView.delegate                  = self;
@@ -125,6 +126,9 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         cell.titleLable.text = booksModel.title;
         [cell.authorLable setTitle:booksModel.author forState:UIControlStateNormal];
         cell.shortIntroLable.text = booksModel.shortIntro;
+        [cell.latelyFollowerLable setTitle:[NSString stringWithFormat:@"%ld",booksModel.latelyFollower] forState:UIControlStateNormal];
+        [cell.minorCateLable setTitle:booksModel.minorCate forState:UIControlStateNormal];
+        [cell.majorCateLable setTitle:booksModel.majorCate forState:UIControlStateNormal];
         return cell;
     }
     
@@ -184,6 +188,16 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     }else{
         [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor clearColor]];
     }
+    
+//    if(offsetY < 0) {
+//        ParallaxHeaderViewCell *cell = [ParallaxHeaderViewCell loadNibView];
+//        CGRect tempFrame = cell.spreadImageView.frame;
+//        tempFrame.origin.y = offsetY;
+//        tempFrame.size.height = 200 - offsetY;
+//        cell.spreadImageView.frame = tempFrame;
+//        CGFloat scale = 1 - ((offsetY + 20) / 240.0);
+//        cell.spreadImageView.transform = CGAffineTransformMakeScale(scale, scale);
+//    }
     
 }
 

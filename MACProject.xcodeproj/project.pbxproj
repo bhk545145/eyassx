@@ -2817,6 +2817,7 @@
 				DEVELOPMENT_TEAM = 95ZV6F8F65;
 				GCC_PREFIX_HEADER = "${SRCROOT}/MACProject/prefixHeader.pch";
 				INFOPLIST_FILE = MACProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novel.eyassx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2837,6 +2838,7 @@
 				DEVELOPMENT_TEAM = 95ZV6F8F65;
 				GCC_PREFIX_HEADER = "${SRCROOT}/MACProject/prefixHeader.pch";
 				INFOPLIST_FILE = MACProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novel.eyassx;
 				PRODUCT_NAME = "$(TARGET_NAME)";

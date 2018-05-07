@@ -14,4 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *shortIntroLable;
 @property (weak, nonatomic) IBOutlet UIButton *authorLable;
+@property (weak, nonatomic) IBOutlet UIButton *latelyFollowerLable;
+@property (weak, nonatomic) IBOutlet UIButton *majorCateLable;
+@property (weak, nonatomic) IBOutlet UIButton *minorCateLable;
 @end
