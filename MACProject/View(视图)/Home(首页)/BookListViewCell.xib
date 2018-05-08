@@ -43,8 +43,12 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lmG-4T-Xgl">
                         <rect key="frame" x="10" y="140" width="96" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="JRh-f2-6d6"/>
+                            <constraint firstAttribute="width" constant="96" id="OHl-h9-6aa"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="关心则乱" image="dl_phone">
+                        <state key="normal" title="关心则乱" image="account">
                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                     </button>
@@ -57,24 +61,38 @@
                         </constraints>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9j-1u-OlH">
-                        <rect key="frame" x="162" y="137" width="38" height="27"/>
+                        <rect key="frame" x="162" y="146" width="38" height="18"/>
                     </stackView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qG2-pG-9s0">
-                        <rect key="frame" x="262" y="137" width="38" height="27"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="Button" backgroundImage="xx_qipao">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qG2-pG-9s0">
+                        <rect key="frame" x="262" y="142" width="38" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="G9M-Dx-535"/>
+                            <constraint firstAttribute="width" constant="38" id="wRH-Dj-ZJb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="6"/>
+                        <state key="normal" title="Button" backgroundImage="blueframe">
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJi-Kx-lAQ">
+                        <rect key="frame" x="224" y="142" width="38" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="38" id="6oA-60-dBh"/>
+                            <constraint firstAttribute="height" constant="18" id="cLm-gF-2qf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                        <state key="normal" title="Button" backgroundImage="redframe">
                             <color key="titleColor" red="1" green="0.32550417370000001" blue="0.36223464599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJi-Kx-lAQ">
-                        <rect key="frame" x="224" y="137" width="38" height="27"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="Button"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpG-1y-6mg">
-                        <rect key="frame" x="186" y="137" width="38" height="27"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="Button">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpG-1y-6mg">
+                        <rect key="frame" x="186" y="142" width="38" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="fz5-mQ-hFq"/>
+                            <constraint firstAttribute="width" constant="38" id="udg-3c-1Po"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                        <state key="normal" title="虚拟网游" backgroundImage="greeframe">
                             <color key="titleColor" red="0.27715656038105263" green="1" blue="0.29937776949735773" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
@@ -82,8 +100,8 @@
             </view>
             <constraints>
                 <constraint firstItem="dJi-Kx-lAQ" firstAttribute="leading" secondItem="p9j-1u-OlH" secondAttribute="trailing" constant="24" id="1NH-xn-pJQ"/>
-                <constraint firstAttribute="bottom" secondItem="cpG-1y-6mg" secondAttribute="bottom" id="3LS-oi-iJl"/>
-                <constraint firstAttribute="bottom" secondItem="dJi-Kx-lAQ" secondAttribute="bottom" id="72m-9c-tRw"/>
+                <constraint firstAttribute="bottom" secondItem="cpG-1y-6mg" secondAttribute="bottom" constant="4" id="3LS-oi-iJl"/>
+                <constraint firstAttribute="bottom" secondItem="dJi-Kx-lAQ" secondAttribute="bottom" constant="4" id="72m-9c-tRw"/>
                 <constraint firstItem="p9j-1u-OlH" firstAttribute="leading" secondItem="lmG-4T-Xgl" secondAttribute="trailing" constant="56" id="7tf-a3-hb3"/>
                 <constraint firstItem="NPD-7h-Ljh" firstAttribute="leading" secondItem="GeW-gC-iGL" secondAttribute="leading" id="8l2-p2-Mjh"/>
                 <constraint firstAttribute="trailing" secondItem="ReM-Tu-0n7" secondAttribute="trailing" constant="10" id="H7D-m0-FaV"/>
@@ -97,10 +115,10 @@
                 <constraint firstItem="j0L-Vy-clO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="SMC-Ay-f4o"/>
                 <constraint firstAttribute="trailing" secondItem="NPD-7h-Ljh" secondAttribute="trailing" constant="11" id="WM1-f1-Aqu"/>
                 <constraint firstItem="lmG-4T-Xgl" firstAttribute="centerX" secondItem="j0L-Vy-clO" secondAttribute="centerX" id="YP1-Ox-hel"/>
-                <constraint firstItem="p9j-1u-OlH" firstAttribute="top" secondItem="cpG-1y-6mg" secondAttribute="top" id="ZAJ-cS-lec"/>
+                <constraint firstItem="p9j-1u-OlH" firstAttribute="top" secondItem="cpG-1y-6mg" secondAttribute="top" constant="4" id="ZAJ-cS-lec"/>
                 <constraint firstItem="dJi-Kx-lAQ" firstAttribute="leading" secondItem="cpG-1y-6mg" secondAttribute="trailing" id="Zuh-Sl-wPo"/>
                 <constraint firstItem="qG2-pG-9s0" firstAttribute="leading" secondItem="dJi-Kx-lAQ" secondAttribute="trailing" id="a66-wm-hoi"/>
-                <constraint firstAttribute="bottom" secondItem="qG2-pG-9s0" secondAttribute="bottom" id="agP-9F-kYz"/>
+                <constraint firstAttribute="bottom" secondItem="qG2-pG-9s0" secondAttribute="bottom" constant="4" id="agP-9F-kYz"/>
                 <constraint firstItem="qG2-pG-9s0" firstAttribute="centerY" secondItem="cpG-1y-6mg" secondAttribute="centerY" id="djU-FC-oVD"/>
                 <constraint firstItem="GeW-gC-iGL" firstAttribute="top" secondItem="NPD-7h-Ljh" secondAttribute="bottom" constant="12" id="eMe-X6-FxI"/>
                 <constraint firstItem="NPD-7h-Ljh" firstAttribute="top" secondItem="j0L-Vy-clO" secondAttribute="top" id="eVM-aI-56N"/>
@@ -124,7 +142,9 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="dl_phone" width="18" height="21"/>
-        <image name="xx_qipao" width="30" height="23"/>
+        <image name="account" width="15" height="19"/>
+        <image name="blueframe" width="204" height="200"/>
+        <image name="greeframe" width="204" height="200"/>
+        <image name="redframe" width="204" height="200"/>
     </resources>
 </document>

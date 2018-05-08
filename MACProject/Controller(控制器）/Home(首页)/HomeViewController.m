@@ -126,9 +126,16 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         cell.titleLable.text = booksModel.title;
         [cell.authorLable setTitle:booksModel.author forState:UIControlStateNormal];
         cell.shortIntroLable.text = booksModel.shortIntro;
-        [cell.latelyFollowerLable setTitle:[NSString stringWithFormat:@"%ld",booksModel.latelyFollower] forState:UIControlStateNormal];
-        [cell.minorCateLable setTitle:booksModel.minorCate forState:UIControlStateNormal];
-        [cell.majorCateLable setTitle:booksModel.majorCate forState:UIControlStateNormal];
+        [cell.latelyFollowerLable setTitle:[NSString stringWithFormat:@"%ld人气",(long)booksModel.latelyFollower] forState:UIControlStateNormal];
+        if (![booksModel.minorCate isEqualToString:@""]) {
+            cell.minorCateLable.hidden = NO;
+            [cell.minorCateLable setTitle:booksModel.minorCate forState:UIControlStateNormal];
+        }
+        if (![booksModel.majorCate isEqualToString:@""]) {
+            cell.majorCateLable.hidden = NO;
+            [cell.majorCateLable setTitle:booksModel.majorCate forState:UIControlStateNormal];
+        }
+        
         return cell;
     }
     
