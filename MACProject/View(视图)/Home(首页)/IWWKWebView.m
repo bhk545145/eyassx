@@ -161,7 +161,10 @@
     NSString *jsString = @"localStorage.getItem('RM_LATELY_BOOK')";
     [self evaluateJavaScript:jsString completionHandler:^(id _Nullable localStorage, NSError * _Nullable error) {
         latelyBookDic = localStorage;
-        [[NSUserDefaults standardUserDefaults] setObject:latelyBookDic forKey:@"latelyBookDic"];
+        if (latelyBookDic != nil && ![latelyBookDic isKindOfClass:[NSNull class]]) {
+            [[NSUserDefaults standardUserDefaults] setObject:latelyBookDic forKey:@"latelyBookDic"];
+        }
+        
     }];
     
     return latelyBookDic;
