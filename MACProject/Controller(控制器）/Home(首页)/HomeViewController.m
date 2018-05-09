@@ -27,6 +27,7 @@
     NSMutableArray *booksArr;
     NSMutableArray *spReadArr;
     dispatch_queue_t queue;
+    NSDictionary *latelyBookDic;
 }
 @property (nonatomic,strong) UICollectionView *collectionView;
 
@@ -53,6 +54,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     [self initUI];
     [self initData];
     // Do any additional setup after loading the view.
+    
 }
 -(void)initUI{
     // self.fd_prefersNavigationBarHidden=YES;
@@ -114,6 +116,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 //    NSArray *arr   = @[@"newCarouselListCell",@"carLightViewCell" ,@"bannerCell"];
     NSArray *arr   = @[@"ParallaxHeaderViewCell"];
+    DLog(@"latelyBookDic:%@",latelyBookDic);
     if (indexPath.section < arr.count) {
         ParallaxHeaderViewCell   *cell = [collectionView dequeueReusableCellWithReuseIdentifier:arr[indexPath.section] forIndexPath:indexPath];
         cell.spreadArry = spReadArr;
@@ -162,8 +165,9 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     NSString *bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,booksModel._id];
     DLog(@"bookReaderURL:%@",bookReaderURL);
     BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
-    bookWebVC.webUrl = bookReaderURL;
+    bookWebVC.webUrl = bookReaderURL;;
     [self.navigationController pushViewControllerHideTabBar:bookWebVC animated:YES];
+    
 }
 
 #pragma  mark UICollectionViewDelegateFlowLayout
@@ -294,8 +298,14 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     }];
 }
 
+//获取上一次阅读
+-(void)getlatelyBookDic {
+   latelyBookDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"latelyBookDic"];
+}
+
 -(void)loadData{
     dispatch_async(queue, ^{
+        [self getlatelyBookDic];
         [self getSpreadImage];
         [self getHomeBookList];
     });

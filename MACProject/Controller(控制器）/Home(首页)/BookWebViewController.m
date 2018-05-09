@@ -34,6 +34,7 @@
         make.top.equalTo(self.view);
         make.bottom.equalTo(self.view);
     }];
+
     //网页自适配
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.tabBarController.tabBar.barTintColor = [UIColor whiteColor];
@@ -44,12 +45,6 @@
     UIBarButtonItem *refreshBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"] style:UIBarButtonItemStylePlain target:self action:@selector(refreshClick)];
     UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shareZanpin"] style:UIBarButtonItemStylePlain target:self action:@selector(shareZanpinClick)];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshBtn, nil];
-    //    [SVProgressHUD showWithStatus:@"正在加载中"];
-    //    dispatch_async(queue, ^{
-    //        NSString *zanPinURL = [NSString stringWithFormat:@"%@",_webUrl];
-    //        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:zanPinURL]]];
-    //    });
-    
 }
 
 #pragma mark- XXXXXXXXXXXXXXX懒加载部分XXXXXXXXXXXXXXXXXXXX

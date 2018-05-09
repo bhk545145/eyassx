@@ -37,7 +37,6 @@
     [SVProgressHUD showWithStatus:@"正在加载中"];
     NSString *zanPinURL = [NSString stringWithFormat:@"%@",webUrl];
     [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:zanPinURL]]];
-    
     return self;
 }
 
@@ -100,6 +99,7 @@
     _webviewTitle = webView.title;
     DLog(@"URL.absoluteString:%@",webView.URL.absoluteString);
     DLog(@"%@",webView.title);
+    [self getLatelyBookDic];
 }
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation{
@@ -118,6 +118,7 @@
 // 在发送请求之前，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
     DLog(@"request.URL.absoluteString:%@",navigationAction.request.URL.absoluteString);
+    [self getLatelyBookDic];
     //如果是跳转一个新页面
     if (navigationAction.targetFrame == nil) {
         [webView loadRequest:navigationAction.request];
@@ -148,8 +149,23 @@
     completionHandler();
 }
 
-
-
+//获取上次阅读的书
+- (NSDictionary *)getLatelyBookDic {
+    __block NSDictionary *latelyBookDic = [NSDictionary dictionary];
+    //    NSString * userContent = [NSString stringWithFormat:@"{\"token\": \"%@\", \"userId\": %@}", @"a1cd4a59-974f-44ab-b264-46400f26c849", @"89"];
+    // 设置localStorage
+    //    NSString *jsString = [NSString stringWithFormat:@"localStorage.setItem('userContent', '%@')", userContent];
+    // 移除localStorage
+    // NSString *jsString = @"localStorage.removeItem('userContent')";
+    // 获取localStorage
+    NSString *jsString = @"localStorage.getItem('RM_LATELY_BOOK')";
+    [self evaluateJavaScript:jsString completionHandler:^(id _Nullable localStorage, NSError * _Nullable error) {
+        latelyBookDic = localStorage;
+        [[NSUserDefaults standardUserDefaults] setObject:latelyBookDic forKey:@"latelyBookDic"];
+    }];
+    
+    return latelyBookDic;
+}
 
 -(void)foraward:(NSURLRequest *)request{
     NSString *URLString = [NSString stringWithFormat:@"%@",request.URL];
