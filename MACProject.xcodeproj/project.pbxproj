@@ -21,6 +21,8 @@
 		3C179977209EE9DB006B4AEE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3C179971209EE9DB006B4AEE /* SVProgressHUD.bundle */; };
 		3C1E480220A3416600D72D02 /* BookLatelyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E480020A3416600D72D02 /* BookLatelyViewCell.m */; };
 		3C1E480320A3416600D72D02 /* BookLatelyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C1E480120A3416600D72D02 /* BookLatelyViewCell.xib */; };
+		3C1E481220A4987800D72D02 /* bookshelfCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C1E480F20A4987700D72D02 /* bookshelfCell.xib */; };
+		3C1E481320A4987800D72D02 /* bookshelfCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E481020A4987800D72D02 /* bookshelfCell.m */; };
 		3C86F05C209F3BF500718184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C86F05B209F3BF500718184 /* LaunchScreen.storyboard */; };
 		3CF1259D209D56D9002602A7 /* BookListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF1259B209D56D9002602A7 /* BookListViewCell.m */; };
 		3CF1259E209D56D9002602A7 /* BookListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF1259C209D56D9002602A7 /* BookListViewCell.xib */; };
@@ -320,6 +322,9 @@
 		3C1E47FF20A3416600D72D02 /* BookLatelyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookLatelyViewCell.h; sourceTree = "<group>"; };
 		3C1E480020A3416600D72D02 /* BookLatelyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookLatelyViewCell.m; sourceTree = "<group>"; };
 		3C1E480120A3416600D72D02 /* BookLatelyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookLatelyViewCell.xib; sourceTree = "<group>"; };
+		3C1E480F20A4987700D72D02 /* bookshelfCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bookshelfCell.xib; sourceTree = "<group>"; };
+		3C1E481020A4987800D72D02 /* bookshelfCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bookshelfCell.m; sourceTree = "<group>"; };
+		3C1E481120A4987800D72D02 /* bookshelfCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bookshelfCell.h; sourceTree = "<group>"; };
 		3C86F05B209F3BF500718184 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CF1259A209D56D9002602A7 /* BookListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookListViewCell.h; sourceTree = "<group>"; };
 		3CF1259B209D56D9002602A7 /* BookListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookListViewCell.m; sourceTree = "<group>"; };
@@ -895,6 +900,17 @@
 			path = "我的";
 			sourceTree = "<group>";
 		};
+		3C1E480920A48A2600D72D02 /* 书架 */ = {
+			isa = PBXGroup;
+			children = (
+				3C1E481120A4987800D72D02 /* bookshelfCell.h */,
+				3C1E481020A4987800D72D02 /* bookshelfCell.m */,
+				3C1E480F20A4987700D72D02 /* bookshelfCell.xib */,
+			);
+			name = "书架";
+			path = "MACProject/View(视图)/书架";
+			sourceTree = SOURCE_ROOT;
+		};
 		5A0527E91D6EEF4B004ECE57 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1264,13 +1280,6 @@
 				5A5827A01DB4B76200E00058 /* MessageCell.m */,
 			);
 			path = "Friends(车友圈)";
-			sourceTree = "<group>";
-		};
-		5A557C261D6C3B7D00DF26DC /* Near(云周边) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Near(云周边)";
 			sourceTree = "<group>";
 		};
 		5A58272B1DB49D6D00E00058 /* UIView */ = {
@@ -2128,7 +2137,7 @@
 			isa = PBXGroup;
 			children = (
 				5AEA43351DDC0E6F005457D7 /* Finder */,
-				5A557C261D6C3B7D00DF26DC /* Near(云周边) */,
+				3C1E480920A48A2600D72D02 /* 书架 */,
 				5A557C251D6C3B7800DF26DC /* Friends(车友圈) */,
 				5A546EA61D5C153B00F9361E /* Home(首页) */,
 			);
@@ -2374,6 +2383,7 @@
 				5A97EC7A1D6469AF00A29247 /* CarLightViewCell.xib in Resources */,
 				5A5827831DB49D6D00E00058 /* face.plist in Resources */,
 				5AB520DC1D53290F000C3C80 /* icon_refresh_1@2x.png in Resources */,
+				3C1E481220A4987800D72D02 /* bookshelfCell.xib in Resources */,
 				3C179977209EE9DB006B4AEE /* SVProgressHUD.bundle in Resources */,
 				5A8A55811DAE156A009F5D50 /* MessageJSON.json in Resources */,
 				5AF9AF991D4A0F9800F23C1E /* Main.storyboard in Resources */,
@@ -2547,6 +2557,7 @@
 				5AB520951D53290F000C3C80 /* NSDate+Mac.m in Sources */,
 				5AB520E41D53290F000C3C80 /* MGSwipeButton.m in Sources */,
 				5AB520FB1D53290F000C3C80 /* MACSideMenuController.m in Sources */,
+				3C1E481320A4987800D72D02 /* bookshelfCell.m in Sources */,
 				5AB520D01D53290F000C3C80 /* UINavigationController+KMNavigationBarTransition.m in Sources */,
 				5AB520971D53290F000C3C80 /* NSException+Trace.m in Sources */,
 				5AFD7B161D941B0C007EC7C2 /* UITableViewCell+HYBMasonryAutoCellHeight.m in Sources */,

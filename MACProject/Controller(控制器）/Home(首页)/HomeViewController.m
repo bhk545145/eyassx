@@ -172,7 +172,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *bookReaderURL = nil;
     if (indexPath.section == 1) {
-        bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,latelyBookDic[@"id"]];
+        bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxURL,latelyBookDic[@"id"]];
     }else{
         BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
         bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,booksModel._id];

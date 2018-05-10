@@ -100,6 +100,7 @@
     DLog(@"URL.absoluteString:%@",webView.URL.absoluteString);
     DLog(@"%@",webView.title);
     [self getLatelyBookDic];
+    [self getBookshelfData];
 }
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation{
@@ -119,6 +120,7 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
     DLog(@"request.URL.absoluteString:%@",navigationAction.request.URL.absoluteString);
     [self getLatelyBookDic];
+    [self getBookshelfData];
     //如果是跳转一个新页面
     if (navigationAction.targetFrame == nil) {
         [webView loadRequest:navigationAction.request];
@@ -164,10 +166,21 @@
         if (latelyBookDic != nil && ![latelyBookDic isKindOfClass:[NSNull class]]) {
             [[NSUserDefaults standardUserDefaults] setObject:latelyBookDic forKey:@"latelyBookDic"];
         }
-        
     }];
-    
     return latelyBookDic;
+}
+
+//读取书架数据
+- (NSArray *)getBookshelfData {
+    __block NSArray *bookshelfList = [NSArray array];
+    NSString *jsString = @"localStorage.getItem('RM_SHEFLBOOK')";
+    [self evaluateJavaScript:jsString completionHandler:^(id _Nullable localStorage, NSError * _Nullable error) {
+        bookshelfList = localStorage;
+        if (bookshelfList != nil && ![bookshelfList isKindOfClass:[NSNull class]]) {
+            [[NSUserDefaults standardUserDefaults] setObject:bookshelfList forKey:@"bookshelfList"];
+        }
+    }];
+    return bookshelfList;
 }
 
 -(void)foraward:(NSURLRequest *)request{

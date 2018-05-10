@@ -29,10 +29,10 @@
 //    NSArray *iconArr = @[@"chaweizhang_gray",@"cheyouquan_gray",@"chazhoubian_gray",@"faxian_gray"];
 //    NSArray *selectIconArr = @[@"chaweizhang_red",@"cheyouquan_red",@"chazhoubian_red",@"faxian_red"];
 //    NSArray *controllerArr = @[@"HomeViewController",@"FriendsViewController",@"NearViewController",@"FindViewController"];
-    NSArray *titleArr = @[@"闲鱼",@"排行榜"];
-    NSArray *iconArr = @[@"chaweizhang_gray",@"chazhoubian_gray"];
-    NSArray *selectIconArr = @[@"chaweizhang_red",@"chazhoubian_red"];
-    NSArray *controllerArr = @[@"HomeViewController",@"BookWebViewController"];
+    NSArray *titleArr = @[@"首页",@"排行榜",@"书架"];
+    NSArray *iconArr = @[@"chaweizhang_gray",@"cheyouquan_gray",@"chazhoubian_gray"];
+    NSArray *selectIconArr = @[@"chaweizhang_red",@"cheyouquan_red",@"chazhoubian_red"];
+    NSArray *controllerArr = @[@"HomeViewController",@"BookWebViewController",@"NearViewController"];
     for(NSInteger i = 0;i < controllerArr.count;i++)
     {
 
