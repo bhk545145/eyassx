@@ -93,4 +93,10 @@
     return xmlStr;
 }
 
+- (BOOL)isBlank {
+    if (self == nil || self == NULL || [self isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    return NO;
+}
 @end

@@ -26,11 +26,12 @@
 
 //category  常用扩展类
 #import "NSString+MAC.h"
-
+#import "NSArray+MAC.h"
 #import "NSArray+SafeAccess.h"
 #import "NSObjcet+MAC.h"
 #import "UIColor+Mac.h"
 #import "UIColor+MACProject.h"
+#import "NSDictionary+MAC.h"
 #import "UIViewHeader.h"
 #import "UIImageViewHeader.h"
 #import "UIImageView+WebCache.h"

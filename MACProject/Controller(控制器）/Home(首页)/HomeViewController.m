@@ -21,17 +21,18 @@
 #import "BookSpreadModel.h"
 #import "BookWebViewController.h"
 #import "BookLatelyViewCell.h"
-
+#import "BookSearchViewController.h"
+#import "CitysViewController.h"
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>{
     CGFloat headerHeight;
     NSMutableArray *bookListArr;
     NSMutableArray *booksArr;
     NSMutableArray *spReadArr;
     dispatch_queue_t queue;
-    NSDictionary *latelyBookDic;
+    
 }
 @property (nonatomic,strong) UICollectionView *collectionView;
-
+@property (nonatomic,strong) NSDictionary *latelyBookDic;
 @end
 
 @implementation HomeViewController
@@ -96,9 +97,8 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     // Dispose of any resources that can be recreated.
 }
 - (void)searchBtn {
-    BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
-    bookWebVC.webUrl = eyassxURL;
-    [self.navigationController pushViewControllerHideTabBar:bookWebVC animated:YES];
+    BookSearchViewController *booSearchVC = [[BookSearchViewController alloc]init];
+    [self.navigationController pushViewControllerHideTabBar:booSearchVC animated:YES];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -126,7 +126,12 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         return cell;
     }else if (indexPath.section == 1){
         BookLatelyViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:arr[indexPath.section] forIndexPath:indexPath];
-        cell.latelay.text = [NSString stringWithFormat:@"上次阅读:%@%@",latelyBookDic[@"title"],latelyBookDic[@"readChapterTitle"]];
+        if ([_latelyBookDic[@"id"] isEqualToString:@"541814b3e6d8c2451412a5ce"]) {
+            cell.latelay.text = [NSString stringWithFormat:@"推荐阅读:%@%@",_latelyBookDic[@"title"],_latelyBookDic[@"readChapterTitle"]];
+        }else{
+            cell.latelay.text = [NSString stringWithFormat:@"上次阅读:%@%@",_latelyBookDic[@"title"],_latelyBookDic[@"readChapterTitle"]];
+        }
+        
         return cell;
     } else {
         BookListViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
@@ -172,7 +177,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *bookReaderURL = nil;
     if (indexPath.section == 1) {
-        bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxURL,latelyBookDic[@"id"]];
+        bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxURL,_latelyBookDic[@"id"]];
     }else{
         BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
         bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,booksModel._id];
@@ -317,8 +322,15 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 
 //获取上一次阅读
 -(void)getlatelyBookDic {
-   latelyBookDic = [[[NSUserDefaults standardUserDefaults] objectForKey:@"latelyBookDic"] jsonStringToDictionary];
-    DLog(@"latelyBookDic:%@",latelyBookDic);
+   self.latelyBookDic = [[[NSUserDefaults standardUserDefaults] objectForKey:@"latelyBookDic"] jsonStringToDictionary];
+    DLog(@"latelyBookDic:%@",_latelyBookDic);
+    if (_latelyBookDic == nil) {
+        self.latelyBookDic = @{
+                               @"title":@"赌徒",
+                               @"readChapterTitle":@"第一章 离婚前协议",
+                               @"id":@"541814b3e6d8c2451412a5ce"
+                               };
+    }
 }
 
 -(void)loadData{
@@ -329,6 +341,12 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     });
 }
 
+- (NSDictionary *)latelyBookDic {
+    if (!_latelyBookDic) {
+        _latelyBookDic = [NSDictionary dictionary];
+    }
+    return _latelyBookDic;
+}
 
 @end
 

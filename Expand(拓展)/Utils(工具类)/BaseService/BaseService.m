@@ -38,7 +38,14 @@ typedef void(^ServerBlock)(id result, NSInteger errorCode, NSString *message);
         [[HTTPClient sharedHTTPClient] GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSLog(@"responseObject:--------%@",responseObject);
             BaseModel *baseModel=[BaseModel mj_objectWithKeyValues:responseObject];
-            requestBlock([baseModel.ok intValue],[baseModel.data jsonBase64Value],nil);
+            if (baseModel.data) {
+                requestBlock([baseModel.ok intValue],[baseModel.data jsonBase64Value],nil);
+            }else if(baseModel.books){
+                requestBlock([baseModel.ok intValue],[baseModel.books jsonBase64Value],nil);
+            }else{
+                requestBlock([baseModel.ok intValue],[responseObject jsonBase64Value],nil);
+            }
+            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             [self showMessage:[error code]];
             if (requestBlock) {

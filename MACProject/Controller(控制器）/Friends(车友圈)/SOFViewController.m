@@ -75,7 +75,7 @@
     // Do any additional setup after loading the view.
 }
 -(void)initUI{
-    self.title                             = @"朋友圈";
+    self.title                             = @"书友圈";
     _tableView                             = [[MACTableView alloc]initWithFrame: self.view.bounds style:UITableViewStyleGrouped];
     _tableView.macTableViewDelegate        = self;
    // _tableView.separatorStyle       = UITableViewCellSeparatorStyleNone;
@@ -84,7 +84,7 @@
     _tableView.sectionHeaderHeight         = UITableViewAutomaticDimension;
     [_tableView registerClass:[MessageHeadView class] forHeaderFooterViewReuseIdentifier:@"messageHeadView"];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:@"commentCell"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:[[YYFPSLabel alloc]initWithFrame:CGRectMake(0, 5, 60, 30)]];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:[[YYFPSLabel alloc]initWithFrame:CGRectMake(0, 5, 60, 30)]];
     [self.view addSubview:_tableView];
 
     self.chatKeyBoard = [ChatKeyBoard keyBoard];

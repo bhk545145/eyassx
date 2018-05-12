@@ -26,6 +26,10 @@
  *  小说API返回的Result参数集合
  */
 @property(nonatomic,strong) NSObject *data;
+/**
+ *  小说搜索API返回的Result参数集合
+ */
+@property(nonatomic,strong) NSObject *books;
 
 
 @end

@@ -10,6 +10,8 @@
 #import "FriendsCell.h"
 #import "ContactsVC.h"
 #import "SOFViewController.h"
+#import "QRScanViewController.h"
+#import "BookWebViewController.h"
 @interface FriendsViewController ()<UITableViewDataSource,UITableViewDelegate>{
     NSMutableArray *_titleArr;
     NSMutableArray *_iconArr;
@@ -29,7 +31,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 -(void)initUI{
-    self.title = @"朋友圈";
+    self.title = @"书友圈";
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -40,9 +42,9 @@
     [self.view addSubview:self.tableView];
 }
 -(void)initData{
-    _titleArr = [[NSMutableArray alloc]initWithArray:@[@[@"车友圈",@"我的车友"],@[@"我的奖品",@"我的消息"]]];
-    _iconArr = [[NSMutableArray alloc]initWithArray:@[@[@"user_identify_icon",@"user_introduce_icon"],@[@"user_phone_icon",@"user_registerTime_icon"]]];
-    _classArr = [[NSMutableArray alloc]initWithArray:@[@[@"SOFViewController",@"ContactsVC"],@[@"RandomViewController",@"MessageViewController"]]];
+    _titleArr = [[NSMutableArray alloc]initWithArray:@[@[@"书友圈",@"扫一扫"],@[@"我的消息"]]];
+    _iconArr = [[NSMutableArray alloc]initWithArray:@[@[@"user_identify_icon",@"user_introduce_icon"],@[@"user_phone_icon"]]];
+    _classArr = [[NSMutableArray alloc]initWithArray:@[@[@"SOFViewController",@"QRScanViewController"],@[@"MessageViewController"]]];
    // [self.tableView reloadData];
 }
 #pragma mark TableView delegate datasource
@@ -65,10 +67,39 @@
     return GTFixHeightFlaot(15.f);
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     UIViewController *viewController = [[NSClassFromString([_classArr arrayWithIndex:indexPath.section][indexPath.row]) alloc] init];
-
-    [self.navigationController pushViewControllerHideTabBar:viewController animated:YES];
+    if ([viewController isKindOfClass:[QRScanViewController class]]) {
+        QRScanViewController *scanVC = [[QRScanViewController alloc]init];
+        scanVC.title = @"扫一扫";
+        [scanVC doneScanBlock:^(id assetDicArray) {
+            NSString *strResultWithBase64 = [NSString stringWithFormat:@"%@", assetDicArray];
+            strResultWithBase64 = [strResultWithBase64 stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            NSData *data = [[NSData alloc]initWithBase64EncodedString:strResultWithBase64 options:0];
+            NSString *strResult = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            [scanVC showAlertMessage:strResult title:@"扫描内容" clickArr:@[@"确定",@"取消"] click:^(NSInteger index) {
+                switch (index) {
+                    case 0:{
+                        [scanVC.navigationController popViewControllerAnimated:YES];
+                        BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
+                        bookWebVC.webUrl = assetDicArray;
+                        [self.navigationController pushViewControllerHideTabBar:bookWebVC animated:YES];
+                    }
+                        break;
+                    case 1:{
+                        [scanVC.navigationController popViewControllerAnimated:YES];
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                return;
+            }];
+        }];
+        [self.navigationController pushViewControllerHideTabBar:scanVC animated:YES];
+    }else{
+        [self.navigationController pushViewControllerHideTabBar:viewController animated:YES];
+    }
+    
 
     
 }

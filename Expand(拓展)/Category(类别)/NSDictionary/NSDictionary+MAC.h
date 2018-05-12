@@ -35,4 +35,11 @@
  *  @return XML 字符串
  */
 - (NSString *)jk_XMLString;
+
+/**
+ 判断字典是否为空
+
+ @return YES为空
+ */
+- (BOOL)isBlank;
 @end

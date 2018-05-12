@@ -11,5 +11,5 @@
 
 #import "NSArray+Block.h"
 #import "NSArray+SafeAccess.h"
-
+#import "NSArray+MAC.h"
 #endif /* NSArrayHeader_h */

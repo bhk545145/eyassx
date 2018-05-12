@@ -10,18 +10,22 @@
 #import "bookshelfCell.h"
 #import "ContactsVC.h"
 #import "SOFViewController.h"
+#import "BookWebViewController.h"
+
 @interface NearViewController ()<UITableViewDataSource,UITableViewDelegate>{
-    NSMutableArray *_titleArr;
+    NSArray *_titleArr;
     NSMutableArray *_iconArr;
     NSMutableArray *_classArr;
 }
 @property(nonatomic,strong) UITableView *tableView;
+@property(nonatomic,strong) UIImageView *imageView;
 @end
 
 @implementation NearViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self getBookShelfList];
     [self initUI];
     [self initData];
     // Do any additional setup after loading the view from its nib.
@@ -32,8 +36,18 @@
     [self.tableView reloadData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    self.imageView.hidden = YES;
+    self.tableView.hidden = YES;
+}
+
 -(void)initUI{
     self.title = @"书架";
+
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width * 0.25, appNavigationBarHeight + appStatusBarHeight + 64, self.view.frame.size.width/2, self.view.frame.size.height  /2)];
+    [self.imageView mac_setImageWithURL:[NSURL URLWithString:@"http://novel.eyassx.com/static/images/empty.png"] placeholderImage:nil];
+    [self.view addSubview:self.imageView];
+    
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -72,12 +86,22 @@
     return GTFixHeightFlaot(21.f);
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIViewController *viewController = [[NSClassFromString([_classArr arrayWithIndex:indexPath.section][indexPath.row]) alloc] init];
-    [self.navigationController pushViewControllerHideTabBar:viewController animated:YES];
+    NSString *bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxURL,_titleArr[indexPath.row][@"id"]];
+    DLog(@"bookReaderURL:%@",bookReaderURL);
+    BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
+    bookWebVC.webUrl = bookReaderURL;;
+    [self.navigationController pushViewControllerHideTabBar:bookWebVC animated:YES];
 }
 
 //读取书架数据
 - (void)getBookShelfList {
     _titleArr = [[[NSUserDefaults standardUserDefaults] objectForKey:@"bookshelfList"] mj_JSONObject];
+    if (_titleArr == nil) {
+        self.tableView.hidden = YES;
+        self.imageView.hidden = NO;
+    }else{
+        self.tableView.hidden = NO;
+        self.imageView.hidden = YES;
+    }
 }
 @end

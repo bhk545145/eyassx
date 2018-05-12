@@ -30,17 +30,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejV-Kc-Awl">
-                        <rect key="frame" x="91" y="46" width="213" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="91" y="54" width="213" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZe-Ee-ZC6">
-                        <rect key="frame" x="91" y="82" width="213" height="21"/>
+                        <rect key="frame" x="91" y="86" width="213" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="213" id="oZ9-C9-7e5"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -64,6 +64,7 @@
             <connections>
                 <outlet property="author" destination="ejV-Kc-Awl" id="hJe-Ne-Zvr"/>
                 <outlet property="bookImage" destination="NID-Sc-LOW" id="DdI-Fh-u30"/>
+                <outlet property="lastChapter" destination="xZe-Ee-ZC6" id="szb-jg-WrP"/>
                 <outlet property="titile" destination="HbO-TG-DqH" id="2hW-NU-GzR"/>
             </connections>
             <point key="canvasLocation" x="-128" y="73"/>

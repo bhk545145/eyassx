@@ -19,6 +19,8 @@
 		3C179975209EE9DB006B4AEE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C17996F209EE9DB006B4AEE /* SVProgressHUD.m */; };
 		3C179976209EE9DB006B4AEE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C179970209EE9DB006B4AEE /* SVIndefiniteAnimatedView.m */; };
 		3C179977209EE9DB006B4AEE /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3C179971209EE9DB006B4AEE /* SVProgressHUD.bundle */; };
+		3C1E027320A6B82E0042B579 /* NSArray+MAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E027220A6B82E0042B579 /* NSArray+MAC.m */; };
+		3C1E027620A6C3100042B579 /* BookSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E027520A6C3100042B579 /* BookSearchViewController.m */; };
 		3C1E480220A3416600D72D02 /* BookLatelyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E480020A3416600D72D02 /* BookLatelyViewCell.m */; };
 		3C1E480320A3416600D72D02 /* BookLatelyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C1E480120A3416600D72D02 /* BookLatelyViewCell.xib */; };
 		3C1E481220A4987800D72D02 /* bookshelfCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C1E480F20A4987700D72D02 /* bookshelfCell.xib */; };
@@ -319,6 +321,10 @@
 		3C179970209EE9DB006B4AEE /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		3C179971209EE9DB006B4AEE /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		3C179972209EE9DB006B4AEE /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		3C1E027120A6B82E0042B579 /* NSArray+MAC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+MAC.h"; sourceTree = "<group>"; };
+		3C1E027220A6B82E0042B579 /* NSArray+MAC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MAC.m"; sourceTree = "<group>"; };
+		3C1E027420A6C3100042B579 /* BookSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookSearchViewController.h; sourceTree = "<group>"; };
+		3C1E027520A6C3100042B579 /* BookSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookSearchViewController.m; sourceTree = "<group>"; };
 		3C1E47FF20A3416600D72D02 /* BookLatelyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookLatelyViewCell.h; sourceTree = "<group>"; };
 		3C1E480020A3416600D72D02 /* BookLatelyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookLatelyViewCell.m; sourceTree = "<group>"; };
 		3C1E480120A3416600D72D02 /* BookLatelyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookLatelyViewCell.xib; sourceTree = "<group>"; };
@@ -1158,17 +1164,19 @@
 				5A6751B91D65AE240069DF33 /* CitysViewController.m */,
 				3C179963209EE888006B4AEE /* BookWebViewController.h */,
 				3C179964209EE888006B4AEE /* BookWebViewController.m */,
+				3C1E027420A6C3100042B579 /* BookSearchViewController.h */,
+				3C1E027520A6C3100042B579 /* BookSearchViewController.m */,
 			);
 			path = "Home(首页)";
 			sourceTree = "<group>";
 		};
-		5A546EA31D5C151600F9361E /* Near(云周边) */ = {
+		5A546EA31D5C151600F9361E /* Near(书架) */ = {
 			isa = PBXGroup;
 			children = (
 				5A546EBB1D5C16C700F9361E /* NearViewController.h */,
 				5A546EBC1D5C16C700F9361E /* NearViewController.m */,
 			);
-			path = "Near(云周边)";
+			path = "Near(书架)";
 			sourceTree = "<group>";
 		};
 		5A546EA61D5C153B00F9361E /* Home(首页) */ = {
@@ -1544,6 +1552,8 @@
 				5AB51F741D53290F000C3C80 /* NSArray+SafeAccess.h */,
 				5AB51F751D53290F000C3C80 /* NSArray+SafeAccess.m */,
 				5A994FA01D5DA939000F1A17 /* NSArrayHeader.h */,
+				3C1E027120A6B82E0042B579 /* NSArray+MAC.h */,
+				3C1E027220A6B82E0042B579 /* NSArray+MAC.m */,
 			);
 			path = NSArray;
 			sourceTree = "<group>";
@@ -2151,7 +2161,7 @@
 				5A546EA01D5C151600F9361E /* Find(发现) */,
 				5A546EA11D5C151600F9361E /* Friends(车友圈) */,
 				5A546EA21D5C151600F9361E /* Home(首页) */,
-				5A546EA31D5C151600F9361E /* Near(云周边) */,
+				5A546EA31D5C151600F9361E /* Near(书架) */,
 			);
 			path = "Controller(控制器）";
 			sourceTree = "<group>";
@@ -2531,6 +2541,7 @@
 				5A557C3E1D6C6ECA00DF26DC /* ContactsCell.m in Sources */,
 				5AB6D2371D92243000E9676B /* FriendsMessageCell.m in Sources */,
 				5AB520F81D53290F000C3C80 /* RECommonFunctions.m in Sources */,
+				3C1E027620A6C3100042B579 /* BookSearchViewController.m in Sources */,
 				5AB5209F1D53290F000C3C80 /* NSObjcet+MAC.m in Sources */,
 				5A0528281D6EEF4B004ECE57 /* BaseService.m in Sources */,
 				5AB520CB1D53290F000C3C80 /* MACLabel.m in Sources */,
@@ -2704,6 +2715,7 @@
 				5A05282A1D6EEF4B004ECE57 /* HTTPClient.m in Sources */,
 				5A5827861DB49D6D00E00058 /* FacePageView.m in Sources */,
 				5AB520AE1D53290F000C3C80 /* ChineseToPinyin.m in Sources */,
+				3C1E027320A6B82E0042B579 /* NSArray+MAC.m in Sources */,
 				5A65A9E01D76C303009016C3 /* DownloadManager.m in Sources */,
 				5A5827931DB49D6D00E00058 /* qrencode.c in Sources */,
 				5AB520DA1D53290F000C3C80 /* MACScrollView.m in Sources */,

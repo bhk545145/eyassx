@@ -63,10 +63,13 @@
 
 - (void)setMessage:(id)message{
     _message = message;
-    
-    _paopaoView.text = @"北园高架两辆车在马路上发生小摩擦，司机开始装逼";
-    _dateLabel.text = @"10-09";
-    _timeLabel.text = @"2小时前";
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM-dd"];
+    NSDate *datenow = [NSDate date];
+    NSString *currentTimeString = [formatter stringFromDate:datenow];
+    _paopaoView.text = @"欢迎来到秉烛小说";
+    _dateLabel.text = currentTimeString;
+    _timeLabel.text = @"刚刚";
     
     [self setNeedsLayout];
 }
