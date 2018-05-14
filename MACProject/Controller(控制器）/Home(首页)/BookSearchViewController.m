@@ -106,20 +106,20 @@
     return searchBooksArr.count;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 44.0f;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50.0f;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier=@"cityIdentifier";
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
     if(cell == nil){
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:17.0f];
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell.textLabel.font = [UIFont systemFontOfSize:20.0f];
     }
     
     BooksModel *model = searchBooksArr[indexPath.row];
-    [cell.imageView mac_setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:nil];
+    [cell.imageView mac_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://statics.zhuishushenqi.com%@",model.cover]] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
     cell.textLabel.text = model.title;
     cell.detailTextLabel.text = model.author;
     
@@ -174,8 +174,9 @@
 //搜索书  https://api.zhuishushenqi.com/book/fuzzy-search?query=雪中悍刀行
 - (void)getBookName:(NSString *)bookName {
     [searchBooksArr removeAllObjects];
-    NSString *URLString = [NSString stringWithFormat:@"%@/book/fuzzy-search?query=%@",zhuishushenqiURL,bookName];
-    [BaseService GET:URLString parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
+    NSString *URLString = [NSString stringWithFormat:@"%@/book/fuzzy-search",zhuishushenqiURL];
+    NSDictionary *parameter=@{@"query": bookName};
+    [BaseService GET:URLString parameters:parameter result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
         switch (stateCode) {
             case 1:
             {
