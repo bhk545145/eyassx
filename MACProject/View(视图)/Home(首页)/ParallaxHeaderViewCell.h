@@ -16,4 +16,5 @@
 @property(nonatomic,strong) UIScrollView *bannerView;
 @property(nonatomic,strong) UIPageControl *pageControl;
 @property (strong, nonatomic)  NSString *link;
+@property (nonatomic, retain)NSTimer* rotateTimer;  //让视图自动切换
 @end
