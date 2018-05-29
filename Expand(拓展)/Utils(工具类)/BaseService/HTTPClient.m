@@ -59,7 +59,7 @@ static NSString *baseUrl = @"https://api.zhuishushenqi.com/";
 
    // [self.requestSerializer setAuthorizationHeaderFieldWithUsername:@"XYZ" password:@"xyzzzz"];
 //    self.requestSerializer                         = [AFHTTPRequestSerializer serializer];
-//    self.responseSerializer                        = [AFHTTPResponseSerializer serializer];
+    self.responseSerializer                        = [AFHTTPResponseSerializer serializer];
     self.requestSerializer.timeoutInterval         = 10.0;
    //self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     AFSecurityPolicy *securityPolicy               = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];

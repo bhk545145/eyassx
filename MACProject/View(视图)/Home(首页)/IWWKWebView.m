@@ -207,6 +207,12 @@
                 [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
             }
         }
+        //支付宝
+        if ([URLString containsString:@"alipay://"]) {
+            if ([[UIApplication sharedApplication] canOpenURL:request.URL]) {
+                [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
+            }
+        }
     } else {
         [[UIApplication sharedApplication] openURL:request.URL];
     }

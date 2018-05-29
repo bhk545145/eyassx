@@ -493,6 +493,21 @@ SOFTWARE.
 
 
 
+## UMCAnalytics
+
+Copyright 2011 - 2018 umeng.com. All rights reserved.
+
+
+## UMCCommon
+
+Copyright 2011 - 2018 umeng.com. All rights reserved.
+
+
+## UMCSecurityPlugins
+
+Copyright 2011 - 2018 umeng.com. All rights reserved.
+
+
 ## VGParallaxHeader
 
 The MIT License (MIT)

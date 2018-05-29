@@ -32,6 +32,20 @@ typedef void(^ServerBlock)(id result, NSInteger errorCode, NSString *message);
 
 @implementation BaseService
 
++(void)GETData:(NSString *)URLString parameters:( id)parameters result:(DataResultBlock)requestBlock {
+    [[HTTPClient sharedHTTPClient] GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject:--------%@",responseObject);
+        NSData *strData = responseObject;
+        NSString *dataStr =  [[NSString alloc]initWithData:strData encoding:NSUTF8StringEncoding];
+        requestBlock(1,dataStr,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self showMessage:[error code]];
+        if (requestBlock) {
+            requestBlock(0,nil,error);
+        }
+    }];
+}
+
 +(void)GET:(NSString *)URLString parameters:( id)parameters result:(ResultBlock)requestBlock {
     if ([HTTPClient sharedHTTPClient].isReachable) {//有网络
         

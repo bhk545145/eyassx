@@ -35,8 +35,6 @@
     NSArray *controllerArr = @[@"HomeViewController",@"FriendsViewController",@"BookWebViewController",@"NearViewController"];
     for(NSInteger i = 0;i < controllerArr.count;i++)
     {
-
-      
             UIViewController *viewController = [[NSClassFromString(controllerArr[i]) alloc]init];
 
             [viewController setTabBarItemImage:iconArr[i] selectedImage:selectIconArr[i] title:titleArr[i]];

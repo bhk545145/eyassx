@@ -60,6 +60,10 @@ target 'MACProject' do
     # facebook pop view
     pod 'pop', '~> 1.0'
     
+    pod 'UMCCommon'
+    pod 'UMCAnalytics'
+    pod 'UMCSecurityPlugins'
+    
     #  echart view
     #pod 'iOS-Echarts', '~> 1.1.4'
     

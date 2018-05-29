@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "MainTabBarController.h"
+#import "BaseService.h"
+#import "BookWebViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -16,10 +19,22 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [UMConfigure setLogEnabled:NO];
+    [UMConfigure initWithAppkey:@"5b08e20bf29d98469d00052e" channel:@"App Store"];
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    MainTabBarController *nav = [[MainTabBarController alloc]init];
-    self.window.rootViewController = nav;
+    BOOL checkopen = [[self checkopenapi] boolValue];
+    //true是显示h5，false显示原生
+    if (checkopen) {
+        BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
+        bookWebVC.webUrl = eyassxURL;
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:bookWebVC];
+        self.window.rootViewController = nav;
+    }else{
+        MainTabBarController *nav = [[MainTabBarController alloc]init];
+        self.window.rootViewController = nav;
+    }
+    
     self.window.backgroundColor    = [UIColor whiteColor];
     [self appConfig];
     [self.window makeKeyAndVisible];
@@ -94,4 +109,28 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+//H5开关  http://novel.eyassx.com/openapi/system/checkopenapi?key=ios
+- (NSString *)checkopenapi {
+    __block NSString *checkopen;
+    NSString *URLString = [NSString stringWithFormat:@"%@/openapi/system/checkopenapi?key=ios",eyassxURL];
+    [BaseService GETData:URLString parameters:nil result:^(NSInteger stateCode, NSString *result, NSError *error) {
+        switch (stateCode) {
+            case 1:
+            {
+                checkopen = result;
+                DLog(@"请求成功");
+            }
+                break;
+            case 0:
+            {
+                checkopen = result;
+                DLog(@"请求失败");
+            }
+                break;
+            default:
+                break;
+        }
+    }];
+    return checkopen;
+}
 @end

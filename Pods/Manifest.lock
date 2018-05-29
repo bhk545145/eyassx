@@ -47,6 +47,10 @@ PODS:
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
   - "UITableView+FDTemplateLayoutCell (1.6)"
+  - UMCAnalytics (5.5.0):
+    - UMCCommon
+  - UMCCommon (1.5.0)
+  - UMCSecurityPlugins (1.0.6)
   - VGParallaxHeader (0.0.6):
     - PureLayout
   - YYCache (1.0.4)
@@ -79,6 +83,9 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7.5)
   - TSMessages (~> 0.9.12)
   - "UITableView+FDTemplateLayoutCell (~> 1.5.beta)"
+  - UMCAnalytics
+  - UMCCommon
+  - UMCSecurityPlugins
   - YYImage (~> 1.0.3)
   - YYText (~> 1.0.5)
   - YYWebImage (~> 1.0.4)
@@ -109,6 +116,9 @@ SPEC REPOS:
     - SDWebImage
     - TSMessages
     - "UITableView+FDTemplateLayoutCell"
+    - UMCAnalytics
+    - UMCCommon
+    - UMCSecurityPlugins
     - VGParallaxHeader
     - YYCache
     - YYImage
@@ -140,12 +150,15 @@ SPEC CHECKSUMS:
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
+  UMCAnalytics: 4667788559a72f2fa5077117d1b8802a3b6eb6bb
+  UMCCommon: 82d21f4bb9532a5472cc533bbd8ed48aff376a14
+  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   VGParallaxHeader: 1213aba58c9b0aea84f9e81ad526fde57aa4fe48
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 02c6a2fbc63b1cbd99fb449f48c4bc528b1e9e2e
+PODFILE CHECKSUM: 480d713bf64054eb39b6a13f03fddd0ad4453b14
 
 COCOAPODS: 1.5.0

@@ -23,6 +23,7 @@
 #import "BookLatelyViewCell.h"
 #import "BookSearchViewController.h"
 #import "CitysViewController.h"
+#import "MJRefresh.h"
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>{
     CGFloat headerHeight;
     NSMutableArray *bookListArr;
@@ -73,7 +74,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     // flowLayout.disableStickyHeaders = NO;
     self.collectionView                           = [[UICollectionView alloc] initWithFrame:CGRectMake(0, -64, appWidth , appHeight+24) collectionViewLayout:flowLayout];
 //    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(-64, 0, 0, 0);
-    self.collectionView.bounces                        = NO;
+    self.collectionView.bounces                        = YES;
     self.collectionView.backgroundColor           = [UIColor whiteColor];
     self.collectionView.dataSource                = self;
     self.collectionView.delegate                  = self;
@@ -85,6 +86,14 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     [self.collectionView registerNib:[BookListViewCell loadNib] forCellWithReuseIdentifier:reuseIdentifier];
 //    [self.collectionView registerClass:[BannerCell class] forCellWithReuseIdentifier:@"bannerCell"];
 //    [self.collectionView registerNib:[CarLightViewCell loadNib] forCellWithReuseIdentifier:@"carLightViewCell"];
+    
+    self.collectionView.mj_header = [MJRefreshNormalHeader   headerWithRefreshingBlock:^{
+        [bookListArr removeAllObjects];
+        [booksArr removeAllObjects];
+        [self.collectionView.mj_header  beginRefreshing];
+        [self getHomeBookList];
+        [self.collectionView.mj_header   endRefreshing];
+    }];
 }
 -(void)initData{
     bookListArr = [NSMutableArray array];
@@ -164,9 +173,12 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     } else{
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             BooksHeadView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"BooksHeadView" forIndexPath:indexPath];
-            BookListModel *model = bookListArr[indexPath.section -2];
-            [cell.booksTitle setTitle:model.title forState:UIControlStateNormal];
-            cell._id = model._id;
+            if (bookListArr != nil) {
+                BookListModel *model = bookListArr[indexPath.section -2];
+                [cell.booksTitle setTitle:model.title forState:UIControlStateNormal];
+                cell._id = model._id;
+            }
+            
             return cell;
         }
     }
@@ -179,13 +191,16 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     if (indexPath.section == 1) {
         bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxURL,_latelyBookDic[@"id"]];
     }else{
-        BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
-        bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,booksModel._id];
+        if (booksArr != nil) {
+            BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
+            bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,booksModel._id];
+        }
+        
     }
     
     DLog(@"bookReaderURL:%@",bookReaderURL);
     BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
-    bookWebVC.webUrl = bookReaderURL;;
+    bookWebVC.webUrl = bookReaderURL;
     [self.navigationController pushViewControllerHideTabBar:bookWebVC animated:YES];
     
 }
@@ -240,15 +255,20 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         switch (stateCode) {
             case 1:
             {
-                for (id obj in result[0]) {
-                    BookListModel *model = [BookListModel mj_objectWithKeyValues:obj];
-                    if (model.type == 0) {
-                        [bookListArr addObject:model];
+                if (result != nil) {
+                    for (id obj in result[0]) {
+                        
+                        BookListModel *model = [BookListModel mj_objectWithKeyValues:obj];
+                        if (model.type == 0) {
+                            [bookListArr addObject:model];
+                        }
                     }
-                }
-                DLog(@"获取首页分类成功");
-                for (BookListModel *model in bookListArr) {
-                    [self getBooks:model._id];
+                    DLog(@"获取首页分类成功");
+                    if (bookListArr != nil) {
+                        for (BookListModel *model in bookListArr) {
+                            [self getBooks:model._id];
+                        }
+                    }
                 }
             }
                 break;
@@ -269,16 +289,19 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         switch (stateCode) {
             case 1:
             {
-                NSMutableArray *booksList = [NSMutableArray array];
-                for (id obj in result[0]) {
-                    NSInteger show = [obj[@"show"] integerValue];
-                    if (show) {
-                        BooksModel *model = [BooksModel mj_objectWithKeyValues:obj[@"book"]];
-                        [booksList addObject:model];
+                if (result != nil) {
+                    NSMutableArray *booksList = [NSMutableArray array];
+                    for (id obj in result[0]) {
+                        NSInteger show = [obj[@"show"] integerValue];
+                        if (show) {
+                            BooksModel *model = [BooksModel mj_objectWithKeyValues:obj[@"book"]];
+                            [booksList addObject:model];
+                        }
                     }
+                    [booksArr addObject:booksList];
+                    DLog(@"通过id获取分类书成功");
                 }
-                [booksArr addObject:booksList];
-                DLog(@"通过id获取分类书成功");
+                
             }
                 break;
             case 0:

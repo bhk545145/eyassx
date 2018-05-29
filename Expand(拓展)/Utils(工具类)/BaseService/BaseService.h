@@ -15,9 +15,13 @@
  *  @param error     错误描述
  */
 typedef void(^ResultBlock)(NSInteger stateCode, NSMutableArray* result, NSError *error);
+
+typedef void(^DataResultBlock)(NSInteger stateCode, NSString* result, NSError *error);
 //block不是self的属性或者变量时，在block内使用self也不会循环引用：
 
 @interface BaseService : NSObject
+
++(void)GETData:(NSString *)URLString parameters:( id)parameters result:(DataResultBlock)requestBlock;
 
 /**
  *  普通的GET访问请求(有提示，带判断网络状态)
