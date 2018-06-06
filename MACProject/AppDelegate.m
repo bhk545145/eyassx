@@ -27,7 +27,7 @@
     //true是显示h5，false显示原生
     if (checkopen) {
         BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
-        bookWebVC.webUrl = eyassxURL;
+        bookWebVC.webUrl = eyassxH5;
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:bookWebVC];
         self.window.rootViewController = nav;
     }else{
@@ -111,26 +111,12 @@
 
 //H5开关  http://novel.eyassx.com/openapi/system/checkopenapi?key=ios
 - (NSString *)checkopenapi {
-    __block NSString *checkopen;
     NSString *URLString = [NSString stringWithFormat:@"%@/openapi/system/checkopenapi?key=ios",eyassxURL];
-    [BaseService GETData:URLString parameters:nil result:^(NSInteger stateCode, NSString *result, NSError *error) {
-        switch (stateCode) {
-            case 1:
-            {
-                checkopen = result;
-                DLog(@"请求成功");
-            }
-                break;
-            case 0:
-            {
-                checkopen = result;
-                DLog(@"请求失败");
-            }
-                break;
-            default:
-                break;
-        }
-    }];
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSString *checkopen = [[NSString alloc]initWithData:received encoding:NSUTF8StringEncoding];
+
     return checkopen;
 }
 @end

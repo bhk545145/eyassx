@@ -68,6 +68,7 @@ _Pragma("clang diagnostic pop") \
 
 //-----------------API接口----------------
 #define zhuishushenqiURL @"https://api.zhuishushenqi.com"
-#define eyassxURL @"http://novel.eyassx.com"
+#define eyassxH5 @"https://novel.eyassx.com/?from=ios"
+#define eyassxURL @"https://novel.eyassx.com"
 #endif /* MACMacro_h */
 
