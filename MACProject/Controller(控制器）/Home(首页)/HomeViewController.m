@@ -189,11 +189,11 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *bookReaderURL = nil;
     if (indexPath.section == 1) {
-        bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxURL,_latelyBookDic[@"id"]];
+        bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxH5,_latelyBookDic[@"id"]];
     }else{
         if (booksArr != nil) {
             BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
-            bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,booksModel._id];
+            bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxH5,booksModel._id];
         }
         
     }

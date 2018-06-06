@@ -129,7 +129,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     BooksModel *model = searchBooksArr[indexPath.row];
-    NSString *bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxURL,model._id];
+    NSString *bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxH5,model._id];
     BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
     bookWebVC.webUrl = bookReaderURL;;
     [self.navigationController pushViewControllerHideTabBar:bookWebVC animated:YES];

@@ -86,7 +86,7 @@
     return GTFixHeightFlaot(21.f);
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxURL,_titleArr[indexPath.row][@"id"]];
+    NSString *bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxH5,_titleArr[indexPath.row][@"id"]];
     DLog(@"bookReaderURL:%@",bookReaderURL);
     BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
     bookWebVC.webUrl = bookReaderURL;;
