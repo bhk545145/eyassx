@@ -54,9 +54,13 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     queue = dispatch_queue_create("net.book.Queue", DISPATCH_QUEUE_SERIAL);
-
-    [self initUI];
-    [self initData];
+    BOOL isReachable = [BaseService isReachable];
+    if(isReachable){
+        [self initUI];
+        [self initData];
+    }
+    
+   
     // Do any additional setup after loading the view.
     
 }

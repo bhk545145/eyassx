@@ -21,6 +21,8 @@ typedef void(^DataResultBlock)(NSInteger stateCode, NSString* result, NSError *e
 
 @interface BaseService : NSObject
 
++ (BOOL)isReachable;
+
 +(void)GETData:(NSString *)URLString parameters:( id)parameters result:(DataResultBlock)requestBlock;
 
 /**

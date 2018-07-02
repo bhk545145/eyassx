@@ -70,4 +70,6 @@ target 'MACProject' do
     #蒲公英 版本更新
     #pod 'Pgyer'
     #pod 'PgyUpdate'
+    
+    pod 'Facebook-iOS-SDK' 
 end

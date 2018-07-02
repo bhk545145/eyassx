@@ -14,11 +14,33 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
   - CSStickyHeaderFlowLayout (0.2.11)
   - DZNEmptyDataSet (1.7.3)
   - EAIntroView (2.8.3):
     - EARestrictedScrollView (~> 1.1.0)
   - EARestrictedScrollView (1.1.0)
+  - Facebook-iOS-SDK (4.1.0):
+    - Bolts (~> 1.1)
+    - Facebook-iOS-SDK/CoreKit (= 4.1.0)
+    - Facebook-iOS-SDK/LoginKit (= 4.1.0)
+    - Facebook-iOS-SDK/ShareKit (= 4.1.0)
+  - Facebook-iOS-SDK/CoreKit (4.1.0):
+    - Bolts (~> 1.1)
+    - Facebook-iOS-SDK/CoreKit/no-arc (= 4.1.0)
+  - Facebook-iOS-SDK/CoreKit/no-arc (4.1.0):
+    - Bolts (~> 1.1)
+  - Facebook-iOS-SDK/LoginKit (4.1.0):
+    - Bolts (~> 1.1)
+    - Facebook-iOS-SDK/CoreKit
+  - Facebook-iOS-SDK/ShareKit (4.1.0):
+    - Bolts (~> 1.1)
+    - Facebook-iOS-SDK/CoreKit
   - GMGridView (1.1.1)
   - HexColors (2.2.1)
   - HMSegmentedControl (1.5.4)
@@ -67,6 +89,7 @@ DEPENDENCIES:
   - CSStickyHeaderFlowLayout (~> 0.2.10)
   - DZNEmptyDataSet (~> 1.7.2)
   - EAIntroView (~> 2.8.1)
+  - Facebook-iOS-SDK
   - GMGridView (~> 1.1.1)
   - iCarousel (~> 1.8.2)
   - INTULocationManager (~> 4.2.0)
@@ -93,10 +116,12 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - Bolts
     - CSStickyHeaderFlowLayout
     - DZNEmptyDataSet
     - EAIntroView
     - EARestrictedScrollView
+    - Facebook-iOS-SDK
     - GMGridView
     - HexColors
     - HMSegmentedControl
@@ -127,10 +152,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CSStickyHeaderFlowLayout: e9bcb1762413f49d7d09e5bd0ae5efd1100116b7
   DZNEmptyDataSet: dd7cca17c1d07dfa78956859b1e70a52505678ef
   EAIntroView: e948c83e642f30010d427e643c18a6f2b529afed
   EARestrictedScrollView: b0c2a3f92fb2610bb44d71c5e4893777c89e45ef
+  Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
   GMGridView: 0e91e818e8b4768cfa1132ff3fdff24391ee230c
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   HMSegmentedControl: b25bc4ec44766e073d62c473188fb354ee244b76
@@ -159,6 +186,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 480d713bf64054eb39b6a13f03fddd0ad4453b14
+PODFILE CHECKSUM: 3ac4d5d31ec24efad70bdd6cdcadecbb27587033
 
 COCOAPODS: 1.5.0

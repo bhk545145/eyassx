@@ -32,6 +32,13 @@ typedef void(^ServerBlock)(id result, NSInteger errorCode, NSString *message);
 
 @implementation BaseService
 
++ (BOOL)isReachable {
+    if ([HTTPClient sharedHTTPClient].isReachable) {//有网络
+        return YES;
+    }
+    return NO;
+}
+
 +(void)GETData:(NSString *)URLString parameters:( id)parameters result:(DataResultBlock)requestBlock {
     [[HTTPClient sharedHTTPClient] GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject:--------%@",responseObject);
