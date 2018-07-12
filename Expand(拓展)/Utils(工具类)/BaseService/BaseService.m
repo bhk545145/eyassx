@@ -41,7 +41,7 @@ typedef void(^ServerBlock)(id result, NSInteger errorCode, NSString *message);
 
 +(void)GETData:(NSString *)URLString parameters:( id)parameters result:(DataResultBlock)requestBlock {
     [[HTTPClient sharedHTTPClient] GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject:--------%@",responseObject);
+//        NSLog(@"responseObject:--------%@",responseObject);
         NSData *strData = responseObject;
         NSString *dataStr =  [[NSString alloc]initWithData:strData encoding:NSUTF8StringEncoding];
         requestBlock(1,dataStr,nil);
@@ -57,7 +57,7 @@ typedef void(^ServerBlock)(id result, NSInteger errorCode, NSString *message);
     if ([HTTPClient sharedHTTPClient].isReachable) {//有网络
         
         [[HTTPClient sharedHTTPClient] GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"responseObject:--------%@",responseObject);
+//            NSLog(@"responseObject:--------%@",responseObject);
             BaseModel *baseModel=[BaseModel mj_objectWithKeyValues:responseObject];
             if (baseModel.data) {
                 requestBlock([baseModel.ok intValue],[baseModel.data jsonBase64Value],nil);
@@ -268,7 +268,22 @@ typedef void(^ServerBlock)(id result, NSInteger errorCode, NSString *message);
     }];
 }
 
-
+// 将JSON串转化为字典或者数组
+- (id)toArrayOrNSDictionary:(NSData *)jsonData{
+    
+    NSError *error = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                    options:NSJSONReadingAllowFragments
+                                                      error:nil];
+    
+    if (jsonObject != nil && error == nil){
+        return jsonObject;
+    }else{
+        // 解析错误
+        return nil;
+    }
+    
+}
 
 
 

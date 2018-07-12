@@ -149,20 +149,23 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     } else {
         BookListViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
         // Configure the cell
-        BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
-        [cell.bookImageView mac_setImageWithURL:[NSURL URLWithString:booksModel.cover] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
-        cell.titleLable.text = booksModel.title;
-        [cell.authorLable setTitle:booksModel.author forState:UIControlStateNormal];
-        cell.shortIntroLable.text = booksModel.shortIntro;
-        [cell.latelyFollowerLable setTitle:[NSString stringWithFormat:@"%ld人气",(long)booksModel.latelyFollower] forState:UIControlStateNormal];
-        if (![booksModel.minorCate isEqualToString:@""]) {
-            cell.minorCateLable.hidden = NO;
-            [cell.minorCateLable setTitle:booksModel.minorCate forState:UIControlStateNormal];
+        if (booksArr != nil && ![booksArr isKindOfClass:[NSNull class]] && booksArr.count != 0) {
+            BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
+            [cell.bookImageView mac_setImageWithURL:[NSURL URLWithString:booksModel.cover] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
+            cell.titleLable.text = booksModel.title;
+            [cell.authorLable setTitle:booksModel.author forState:UIControlStateNormal];
+            cell.shortIntroLable.text = booksModel.shortIntro;
+            [cell.latelyFollowerLable setTitle:[NSString stringWithFormat:@"%ld人气",(long)booksModel.latelyFollower] forState:UIControlStateNormal];
+            if (![booksModel.minorCate isEqualToString:@""]) {
+                cell.minorCateLable.hidden = NO;
+                [cell.minorCateLable setTitle:booksModel.minorCate forState:UIControlStateNormal];
+            }
+            if (![booksModel.majorCate isEqualToString:@""]) {
+                cell.majorCateLable.hidden = NO;
+                [cell.majorCateLable setTitle:booksModel.majorCate forState:UIControlStateNormal];
+            }
         }
-        if (![booksModel.majorCate isEqualToString:@""]) {
-            cell.majorCateLable.hidden = NO;
-            [cell.majorCateLable setTitle:booksModel.majorCate forState:UIControlStateNormal];
-        }
+        
         
         return cell;
     }
@@ -177,7 +180,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     } else{
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             BooksHeadView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"BooksHeadView" forIndexPath:indexPath];
-            if (bookListArr != nil) {
+            if (bookListArr != nil && ![bookListArr isKindOfClass:[NSNull class]] && bookListArr.count != 0) {
                 BookListModel *model = bookListArr[indexPath.section -2];
                 [cell.booksTitle setTitle:model.title forState:UIControlStateNormal];
                 cell._id = model._id;
@@ -195,7 +198,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     if (indexPath.section == 1) {
         bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxH5,_latelyBookDic[@"id"]];
     }else{
-        if (booksArr != nil) {
+        if (booksArr != nil && ![booksArr isKindOfClass:[NSNull class]] && booksArr.count != 0) {
             BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
             bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxH5,booksModel._id];
         }
@@ -259,7 +262,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         switch (stateCode) {
             case 1:
             {
-                if (result != nil) {
+                if (result != nil && ![result isKindOfClass:[NSNull class]] && result.count != 0) {
                     for (id obj in result[0]) {
                         
                         BookListModel *model = [BookListModel mj_objectWithKeyValues:obj];
@@ -268,7 +271,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
                         }
                     }
                     DLog(@"获取首页分类成功");
-                    if (bookListArr != nil) {
+                    if (bookListArr != nil && ![bookListArr isKindOfClass:[NSNull class]] && bookListArr.count != 0) {
                         for (BookListModel *model in bookListArr) {
                             [self getBooks:model._id];
                         }
@@ -293,7 +296,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         switch (stateCode) {
             case 1:
             {
-                if (result != nil) {
+                if (result != nil  && ![result isKindOfClass:[NSNull class]] && result.count != 0) {
                     NSMutableArray *booksList = [NSMutableArray array];
                     for (id obj in result[0]) {
                         NSInteger show = [obj[@"show"] integerValue];
@@ -328,10 +331,13 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         switch (stateCode) {
             case 1:
             {
-                for (id obj in result[0]) {
-                    BookSpreadModel *model = [BookSpreadModel mj_objectWithKeyValues:obj];
-                    [spReadArr addObject:model];
+                if (result != nil && ![result isKindOfClass:[NSNull class]] && result.count != 0) {
+                    for (id obj in result[0]) {
+                        BookSpreadModel *model = [BookSpreadModel mj_objectWithKeyValues:obj];
+                        [spReadArr addObject:model];
+                    }
                 }
+                
                 DLog(@"获取轮播图成功");
             }
                 break;
@@ -351,7 +357,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 -(void)getlatelyBookDic {
    self.latelyBookDic = [[[NSUserDefaults standardUserDefaults] objectForKey:@"latelyBookDic"] jsonStringToDictionary];
     DLog(@"latelyBookDic:%@",_latelyBookDic);
-    if (_latelyBookDic == nil) {
+    if (_latelyBookDic == nil ) {
         self.latelyBookDic = @{
                                @"title":@"赌徒",
                                @"readChapterTitle":@"第一章 离婚前协议",
