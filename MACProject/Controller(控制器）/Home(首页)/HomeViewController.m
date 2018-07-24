@@ -44,8 +44,9 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor clearColor]];
     [self getlatelyBookDic];
-    [self.collectionView reloadData];
 }
+
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar lt_reset];
@@ -95,7 +96,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         [bookListArr removeAllObjects];
         [booksArr removeAllObjects];
         [self.collectionView.mj_header  beginRefreshing];
-        [self getHomeBookList];
+        [self loadData];
         [self.collectionView.mj_header   endRefreshing];
     }];
 }
@@ -127,7 +128,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
     }else if (section == 1){
         return 1;
     }
-    return [booksArr[section] count];
+    return [booksArr count]?[booksArr[section] count]:0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,20 +151,23 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         BookListViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
         // Configure the cell
         if (booksArr != nil && ![booksArr isKindOfClass:[NSNull class]] && booksArr.count != 0) {
-            BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
-            [cell.bookImageView mac_setImageWithURL:[NSURL URLWithString:booksModel.cover] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
-            cell.titleLable.text = booksModel.title;
-            [cell.authorLable setTitle:booksModel.author forState:UIControlStateNormal];
-            cell.shortIntroLable.text = booksModel.shortIntro;
-            [cell.latelyFollowerLable setTitle:[NSString stringWithFormat:@"%ld人气",(long)booksModel.latelyFollower] forState:UIControlStateNormal];
-            if (![booksModel.minorCate isEqualToString:@""]) {
-                cell.minorCateLable.hidden = NO;
-                [cell.minorCateLable setTitle:booksModel.minorCate forState:UIControlStateNormal];
+            BooksModel *booksModel = [booksArr count]?booksArr[indexPath.section-2][indexPath.row]:nil;
+            if (booksModel != nil) {
+                [cell.bookImageView mac_setImageWithURL:[NSURL URLWithString:booksModel.cover] placeholderImage:[UIImage imageNamed:@"user_default_icon"]];
+                cell.titleLable.text = booksModel.title;
+                [cell.authorLable setTitle:booksModel.author forState:UIControlStateNormal];
+                cell.shortIntroLable.text = booksModel.shortIntro;
+                [cell.latelyFollowerLable setTitle:[NSString stringWithFormat:@"%ld人气",(long)booksModel.latelyFollower] forState:UIControlStateNormal];
+                if (![booksModel.minorCate isEqualToString:@""]) {
+                    cell.minorCateLable.hidden = NO;
+                    [cell.minorCateLable setTitle:booksModel.minorCate forState:UIControlStateNormal];
+                }
+                if (![booksModel.majorCate isEqualToString:@""]) {
+                    cell.majorCateLable.hidden = NO;
+                    [cell.majorCateLable setTitle:booksModel.majorCate forState:UIControlStateNormal];
+                }
             }
-            if (![booksModel.majorCate isEqualToString:@""]) {
-                cell.majorCateLable.hidden = NO;
-                [cell.majorCateLable setTitle:booksModel.majorCate forState:UIControlStateNormal];
-            }
+            
         }
         
         
@@ -181,9 +185,12 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             BooksHeadView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"BooksHeadView" forIndexPath:indexPath];
             if (bookListArr != nil && ![bookListArr isKindOfClass:[NSNull class]] && bookListArr.count != 0) {
-                BookListModel *model = bookListArr[indexPath.section -2];
-                [cell.booksTitle setTitle:model.title forState:UIControlStateNormal];
-                cell._id = model._id;
+                BookListModel *model = [bookListArr count]?bookListArr[indexPath.section -2]:nil;
+                if (model != nil) {
+                    [cell.booksTitle setTitle:model.title forState:UIControlStateNormal];
+                    cell._id = model._id;
+                }
+                
             }
             
             return cell;
@@ -199,8 +206,11 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
         bookReaderURL = [NSString stringWithFormat:@"%@/#/read/%@",eyassxH5,_latelyBookDic[@"id"]];
     }else{
         if (booksArr != nil && ![booksArr isKindOfClass:[NSNull class]] && booksArr.count != 0) {
-            BooksModel *booksModel = booksArr[indexPath.section-2][indexPath.row];
-            bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxH5,booksModel._id];
+            BooksModel *booksModel = [booksArr count]?booksArr[indexPath.section-2][indexPath.row]:nil;
+            if (booksModel != nil) {
+                bookReaderURL = [NSString stringWithFormat:@"%@/#/book/%@",eyassxH5,booksModel._id];
+            }
+            
         }
         
     }
@@ -258,6 +268,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 
 //获取首页分类书  https://api.zhuishushenqi.com/recommendPage/nodes/5910018c8094b1e228e5868f
 - (void)getHomeBookList{
+    __weak typeof(self) weakSelf = self;
     [BaseService GET:[NSString stringWithFormat:@"%@/recommendPage/nodes/5910018c8094b1e228e5868f",zhuishushenqiURL] parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
         switch (stateCode) {
             case 1:
@@ -271,9 +282,10 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
                         }
                     }
                     DLog(@"获取首页分类成功");
+                    
                     if (bookListArr != nil && ![bookListArr isKindOfClass:[NSNull class]] && bookListArr.count != 0) {
                         for (BookListModel *model in bookListArr) {
-                            [self getBooks:model._id];
+                            [weakSelf getBooks:model._id];
                         }
                     }
                 }
@@ -291,6 +303,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
 }
 //通过id获取分类书
 - (void)getBooks:(NSString *)modelId{
+    __weak typeof(self) weakSelf = self;
     NSString *URLString = [NSString stringWithFormat:@"%@/recommendPage/books/%@",zhuishushenqiURL,modelId];
     [BaseService GET:URLString parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
         switch (stateCode) {
@@ -319,13 +332,16 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
             default:
                 break;
         }
-        [self.collectionView reloadData];
+        [CATransaction setDisableActions:YES];
+        [weakSelf.collectionView reloadData];
+        [CATransaction commit];
     }];
     
 }
 
 //获取轮播图  https://api.zhuishushenqi.com/recommendPage/node/spread/575f74f27a4a60dc78a435a3?pl=ios
 - (void)getSpreadImage {
+    [spReadArr removeAllObjects];
     NSString *URLString = [NSString stringWithFormat:@"%@/recommendPage/node/spread/575f74f27a4a60dc78a435a3?pl=ios",zhuishushenqiURL];
     [BaseService GET:URLString parameters:nil result:^(NSInteger stateCode, NSMutableArray *result, NSError *error) {
         switch (stateCode) {
@@ -349,7 +365,7 @@ static NSString * const reuseIdentifier = @"BookListViewCell";
             default:
                 break;
         }
-        [self.collectionView reloadData];
+//        [self.collectionView reloadData];
     }];
 }
 

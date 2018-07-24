@@ -26,6 +26,7 @@
     [UMConfigure initWithAppkey:@"5b08e20bf29d98469d00052e" channel:@"App Store"];
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [NSThread sleepForTimeInterval:0.5];
     BOOL checkopen = [[self checkopenapi] boolValue];
     //true是显示h5，false显示原生
     if (checkopen) {
