@@ -14,33 +14,11 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Bolts (1.9.0):
-    - Bolts/AppLinks (= 1.9.0)
-    - Bolts/Tasks (= 1.9.0)
-  - Bolts/AppLinks (1.9.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.0)
   - CSStickyHeaderFlowLayout (0.2.11)
   - DZNEmptyDataSet (1.7.3)
   - EAIntroView (2.8.3):
     - EARestrictedScrollView (~> 1.1.0)
   - EARestrictedScrollView (1.1.0)
-  - Facebook-iOS-SDK (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit (= 4.1.0)
-    - Facebook-iOS-SDK/LoginKit (= 4.1.0)
-    - Facebook-iOS-SDK/ShareKit (= 4.1.0)
-  - Facebook-iOS-SDK/CoreKit (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit/no-arc (= 4.1.0)
-  - Facebook-iOS-SDK/CoreKit/no-arc (4.1.0):
-    - Bolts (~> 1.1)
-  - Facebook-iOS-SDK/LoginKit (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit
-  - Facebook-iOS-SDK/ShareKit (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit
   - GMGridView (1.1.1)
   - HexColors (2.2.1)
   - HMSegmentedControl (1.5.4)
@@ -69,9 +47,9 @@ PODS:
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
   - "UITableView+FDTemplateLayoutCell (1.6)"
-  - UMCAnalytics (5.5.0):
+  - UMCCommon (1.5.2)
+  - UMCPush (3.2.2):
     - UMCCommon
-  - UMCCommon (1.5.0)
   - UMCSecurityPlugins (1.0.6)
   - VGParallaxHeader (0.0.6):
     - PureLayout
@@ -89,7 +67,6 @@ DEPENDENCIES:
   - CSStickyHeaderFlowLayout (~> 0.2.10)
   - DZNEmptyDataSet (~> 1.7.2)
   - EAIntroView (~> 2.8.1)
-  - Facebook-iOS-SDK
   - GMGridView (~> 1.1.1)
   - iCarousel (~> 1.8.2)
   - INTULocationManager (~> 4.2.0)
@@ -106,22 +83,20 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7.5)
   - TSMessages (~> 0.9.12)
   - "UITableView+FDTemplateLayoutCell (~> 1.5.beta)"
-  - UMCAnalytics
   - UMCCommon
+  - UMCPush
   - UMCSecurityPlugins
   - YYImage (~> 1.0.3)
   - YYText (~> 1.0.5)
   - YYWebImage (~> 1.0.4)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AFNetworking
-    - Bolts
     - CSStickyHeaderFlowLayout
     - DZNEmptyDataSet
     - EAIntroView
     - EARestrictedScrollView
-    - Facebook-iOS-SDK
     - GMGridView
     - HexColors
     - HMSegmentedControl
@@ -141,8 +116,8 @@ SPEC REPOS:
     - SDWebImage
     - TSMessages
     - "UITableView+FDTemplateLayoutCell"
-    - UMCAnalytics
     - UMCCommon
+    - UMCPush
     - UMCSecurityPlugins
     - VGParallaxHeader
     - YYCache
@@ -152,12 +127,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CSStickyHeaderFlowLayout: e9bcb1762413f49d7d09e5bd0ae5efd1100116b7
   DZNEmptyDataSet: dd7cca17c1d07dfa78956859b1e70a52505678ef
   EAIntroView: e948c83e642f30010d427e643c18a6f2b529afed
   EARestrictedScrollView: b0c2a3f92fb2610bb44d71c5e4893777c89e45ef
-  Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
   GMGridView: 0e91e818e8b4768cfa1132ff3fdff24391ee230c
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   HMSegmentedControl: b25bc4ec44766e073d62c473188fb354ee244b76
@@ -177,8 +150,8 @@ SPEC CHECKSUMS:
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
-  UMCAnalytics: 4667788559a72f2fa5077117d1b8802a3b6eb6bb
-  UMCCommon: 82d21f4bb9532a5472cc533bbd8ed48aff376a14
+  UMCCommon: 4392868ac47ff1b101663106bb114ba616fabbad
+  UMCPush: 5ab89bdbcc1fe90b1c669ff79213b44dc4821ec5
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   VGParallaxHeader: 1213aba58c9b0aea84f9e81ad526fde57aa4fe48
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
@@ -186,6 +159,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 3ac4d5d31ec24efad70bdd6cdcadecbb27587033
+PODFILE CHECKSUM: 66a384d29721c0071fa3f09f56c2166591669f05
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

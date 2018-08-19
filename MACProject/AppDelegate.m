@@ -11,8 +11,12 @@
 #import "BaseService.h"
 #import "BookWebViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <UMCommon/UMCommon.h>
+#import <UMPush/UMessage.h>
 
-@interface AppDelegate ()
+#define CFBundleShortVersionString [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+
+@interface AppDelegate ()<UNUserNotificationCenterDelegate,NSURLConnectionDataDelegate>
 
 @end
 
@@ -22,8 +26,24 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //fackbook统计
+    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    //友盟统计
     [UMConfigure setLogEnabled:NO];
     [UMConfigure initWithAppkey:@"5b08e20bf29d98469d00052e" channel:@"App Store"];
+    
+    // Push组件基本功能配置
+    UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
+    //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
+    entity.types = UMessageAuthorizationOptionBadge|UMessageAuthorizationOptionSound|UMessageAuthorizationOptionAlert;
+    [UNUserNotificationCenter currentNotificationCenter].delegate=self;
+    [UMessage registerForRemoteNotificationsWithLaunchOptions:launchOptions Entity:entity     completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+        }else{
+        }
+    }];
+    
+
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [NSThread sleepForTimeInterval:0.5];
@@ -34,17 +54,19 @@
         bookWebVC.webUrl = eyassxH5;
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:bookWebVC];
         self.window.rootViewController = nav;
+        [FBSDKAppEvents logEvent:@"My custom event"];
     }else{
         MainTabBarController *nav = [[MainTabBarController alloc]init];
         self.window.rootViewController = nav;
+        //检测新版本
+        [self judgeAppVersion];
     }
     
     self.window.backgroundColor    = [UIColor whiteColor];
     [self appConfig];
     [self.window makeKeyAndVisible];
     
-    //fackbook统计
-    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    
     
     return YES;
 }
@@ -142,5 +164,45 @@
     NSString *checkopen = [[NSString alloc]initWithData:received encoding:NSUTF8StringEncoding];
 
     return checkopen;
+}
+
+//AppStore访问地址（重点）
+-(void)judgeAppVersion{
+    NSString *urlStr = @"https://itunes.apple.com//lookup?id=1381221109";
+    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    [NSURLConnection connectionWithRequest:req delegate:self];
+}
+
+#pragma mark - NSURLConnectionDataDelegate
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    //解析
+    NSError *error;
+    NSDictionary *appInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSArray *infoContent = [appInfo objectForKey:@"results"];
+    //最新版本号
+//    NSString *version = [[infoContent objectAtIndex:0] objectForKey:@"version"];
+    NSString *version = @"2.6";
+    //应用程序介绍网址（用户升级跳转URL）
+    NSString *trackViewUrl = [[infoContent objectAtIndex:0] objectForKey:@"trackViewUrl"];
+    
+    NSString *currentVersion = CFBundleShortVersionString;
+    
+    if ([version compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"检查到更新" message:[NSString stringWithFormat:@"发现新版本(%@),是否升级",version] preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+    } else if ([version compare:currentVersion options:NSNumericSearch] == NSOrderedSame) {
+        BookWebViewController *bookWebVC = [[BookWebViewController alloc]init];
+        bookWebVC.webUrl = eyassxH5;
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:bookWebVC];
+        self.window.rootViewController = nav;
+    }
+    
 }
 @end

@@ -61,7 +61,7 @@ target 'MACProject' do
     pod 'pop', '~> 1.0'
     
     pod 'UMCCommon'
-    pod 'UMCAnalytics'
+    pod 'UMCPush'
     pod 'UMCSecurityPlugins'
     
     #  echart view
@@ -71,5 +71,5 @@ target 'MACProject' do
     #pod 'Pgyer'
     #pod 'PgyUpdate'
     
-    pod 'Facebook-iOS-SDK' 
+#    pod 'Facebook-iOS-SDK' 
 end
